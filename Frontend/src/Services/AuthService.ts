@@ -20,13 +20,15 @@ class AuthService {
         // store.dispatch(loginAction(token));
     }
 
-    // public logout(): void {
-    //     store.dispatch(logoutAction());
-    // }
+    public logout(): void {
+        // store.dispatch(logoutAction());
+        localStorage.removeItem("token");
+    }
 
-    // public isLoggedIn(): boolean {
-    //     return store.getState().authState.user !== null;
-    // }
+    public isLoggedIn(): boolean {
+        // return store.getState().authState.user !== null;
+        return localStorage.getItem("token") !== null;
+    }
 
 }
 
