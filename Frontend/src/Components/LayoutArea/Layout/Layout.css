@@ -1,0 +1,14 @@
+.Layout {
+    height: 100%;
+    box-sizing: border-box; 
+    /* display: grid; */
+    /* grid-template-rows: 10% 85% 5%; */
+}
+
+/* .Layout > main {
+    overflow: auto;
+} */
+
+.Layout, .Layout > * {
+    border: 1px solid black;
+}

@@ -1,0 +1,194 @@
+{
+	"info": {
+		"_postman_id": "d54cbaf2-2b03-4a5f-a5c3-3d3c226fd325",
+		"name": "Vacations REST API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21095699"
+	},
+	"item": [
+		{
+			"name": "Get all vacations",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3002/api/vacations/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3002",
+					"path": [
+						"api",
+						"vacations",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get one vacation",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3002/api/vacations/7",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3002",
+					"path": [
+						"api",
+						"vacations",
+						"7"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add new vacation",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"description\": \"Culinary trip to Paris\",\r\n    \"destination\": \"Paris\",\r\n    \"startDate\": \"2022-06-26\",\r\n    \"endDate\": \"2022-06-30\",\r\n    \"price\": 2500,\r\n    \"followers\": 5\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3002/api/vacations/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3002",
+					"path": [
+						"api",
+						"vacations",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete vacation",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3002/api/vacations/12",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3002",
+					"path": [
+						"api",
+						"vacations",
+						"12"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Vacation",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "description",
+							"value": "Culinary trip to Paris",
+							"type": "text"
+						},
+						{
+							"key": "destination",
+							"value": "Paris",
+							"type": "text"
+						},
+						{
+							"key": "startDate",
+							"value": "2022-06-26",
+							"type": "text"
+						},
+						{
+							"key": "endDate",
+							"value": "2022-06-30",
+							"type": "text"
+						},
+						{
+							"key": "price",
+							"value": "2500",
+							"type": "text"
+						},
+						{
+							"key": "followers",
+							"value": "5",
+							"type": "text"
+						},
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/C:/Users/Ido/Downloads/paris-food-guide7.jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3002/api/vacations/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3002",
+					"path": [
+						"api",
+						"vacations",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjpbeyJ1c2VybmFtZSI6ImFkbWluIiwicHJpdmlsZWdlcyI6ImFkbWluIn1dLCJpYXQiOjE2NTQyNTk2NTB9.71UZHGIw7-jnNUkapMMksGK7UE45yNd_Ghtkp2WGqJs",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
