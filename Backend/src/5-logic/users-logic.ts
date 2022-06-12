@@ -29,12 +29,12 @@ const register = async (user: UserModel): Promise<string> => {
 const login = async (credentials: CredentialsModel): Promise<string> => {
 
     credentials.username = credentials.username.toLocaleLowerCase();
-    
-    const sql = `SELECT username, privileges FROM users WHERE username = '${credentials.username}'`
-    const user = await dal.execute(sql);
 
-    if (!user) {
-        throw new ValidationError(`username ${credentials.username} doesn't exist`);
+    const sql = `SELECT username, privileges, password FROM users WHERE username = '${credentials.username}' AND password = '${credentials.password}'`
+    const user = await dal.execute(sql);    
+
+    if (!user[0]) { 
+        throw new ValidationError(`Incorrect username or password`);
     }
 
     const token = cyber.getNewToken(user);

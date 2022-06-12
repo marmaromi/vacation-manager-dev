@@ -23,7 +23,7 @@ class VacationModel {
         this.price = vacation.price;
         this.imageName = vacation.imageName;
         this.image = vacation.image;
-        this.followers = vacation.id;
+        this.followers = vacation.followers;
 
     }
 
