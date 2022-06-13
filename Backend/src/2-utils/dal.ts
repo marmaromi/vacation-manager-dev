@@ -1,11 +1,12 @@
 import mysql from "mysql";
+import config from "./config";
 
 // Create pool of connection and supply one when needed: 
 const connection = mysql.createPool({
-    host: "localhost", // computer name
-    user: "root", // database username
-    password: "", // database password
-    database: "vacation-tag" // database name
+    host: config.sqlHost, // computer name
+    user: config.sqlUser, // database username
+    password: config.sqlPassword, // database password
+    database: config.sqlDatabase // database name
 });
 
 function execute(sql: string): Promise<any> { // Promisify

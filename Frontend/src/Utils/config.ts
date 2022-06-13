@@ -25,10 +25,10 @@ class TestConfig extends Config {
 class ProductionConfig extends Config {
     // public supportPage = "http://vacation-management.com/support/";
 
-    public registerUrl = "http://localhost:3002/api/users/register/";
-    public loginUrl = "http://localhost:3002/api/users/login/";
-    public vacationsUrl = "http://localhost:3002/api/vacations/";
-    public productImagesUrl = "http://localhost:3002/api/vacations/images/";
+    public registerUrl = "https://vacation-manager-ido.herokuapp.com/api/users/register/";
+    public loginUrl = "https://vacation-manager-ido.herokuapp.com/api/users/login/";
+    public vacationsUrl = "https://vacation-manager-ido.herokuapp.com/api/vacations/";
+    public productImagesUrl = "https://vacation-manager-ido.herokuapp.com/api/vacations/images/";
 }
 
 let config: Config;
