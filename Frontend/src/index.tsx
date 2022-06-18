@@ -5,6 +5,7 @@ import Layout from './Components/LayoutArea/Layout/Layout';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 import interceptorService from './Services/InterceptorService';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 interceptorService.createInterceptors();

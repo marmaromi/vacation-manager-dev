@@ -19,9 +19,9 @@ class UserModel {
 
     private static postValidationSchema = Joi.object({
         id: Joi.forbidden(),
-        firstName: Joi.string().required().min(2).max(30),
-        lastName: Joi.string().required().min(2).max(50),
-        username: Joi.string().required().min(1).max(30),
+        firstName: Joi.string().alphanum().required().min(2).max(30),
+        lastName: Joi.string().alphanum().required().min(2).max(50),
+        username: Joi.string().alphanum().required().min(1).max(30),
         password: joiPassword.string().required().min(8).max(50).minOfLowercase(1).minOfUppercase(1).minOfSpecialCharacters(1).minOfNumeric(1).noWhiteSpaces().messages({
             'password.min': '{#label} should contain at least {#min} characters',
             'password.max': '{#label} should contain at least {#min} characters',

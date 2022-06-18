@@ -5,7 +5,6 @@ import VacationModel from "../4-models/vacation-model";
 import { v4 as uuid } from "uuid";
 import fs from "fs";
 
-
 const getAllVacations = async (): Promise<VacationModel[]> => {
     const sql = `SELECT vacationId as id, 
                         description, 
@@ -122,11 +121,12 @@ const deleteVacation = async (id: number): Promise<void> => {
     }
 }
 
+const UpdateFollowerCount = async (id: number): Promise<void> => {
 
+    const sql = `UPDATE vacations SET followers = (SELECT COUNT(vacationId) as followers FROM user_tagged_vacations WHERE vacations.vacationId = user_tagged_vacations.vacationId)`;
+    const result = await dal.execute(sql);
 
-
-
-
+}
 
 // const followerCount = async (id: number): Promise<number> => {
 //     // UPDATE vacations SET followers = (SELECT COUNT(vacationId) as followers FROM user_tagged_vacations WHERE vacations.vacationId = user_tagged_vacations.vacationId);
@@ -137,14 +137,6 @@ const deleteVacation = async (id: number): Promise<void> => {
 //     const followerCount = result[0].followers;
 //     return followerCount;
 // }
-
-
-const UpdateFollowerCount = async (id: number): Promise<void> => {
-
-    const sql = `UPDATE vacations SET followers = (SELECT COUNT(vacationId) as followers FROM user_tagged_vacations WHERE vacations.vacationId = user_tagged_vacations.vacationId)`;
-    const result = await dal.execute(sql);
-
-}
 
 export default {
     getAllVacations,

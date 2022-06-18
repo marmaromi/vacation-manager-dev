@@ -1,3 +1,4 @@
-.Header {
-	
+.Header a, .Header a:hover {
+	color: black;
+    text-decoration: none;
 }

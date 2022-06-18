@@ -1,13 +1,14 @@
-import AuthMenu from "../../AuthArea/AuthMenu/AuthMenu";
+import { NavLink } from "react-router-dom";
+import Logout from "../../AuthArea/logout/logout";
 import "./Header.css";
 
 function Header(): JSX.Element {
     return (
         <div className="Header">
 
-            <AuthMenu />
-
-            <h1>Vacation Manager</h1>
+            <Logout />
+        <NavLink to={"vacations"}><h1>Vacation Manager</h1></NavLink>
+            
 
         </div>
     );

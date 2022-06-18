@@ -13,7 +13,7 @@ class DevelopmentConfig extends Config {
     public sqlHost = "localhost";
     public sqlUser = "root";
     public sqlPassword = "";
-    public sqlDatabase = "vacation-tag";
+    public sqlDatabase = "vacation-manager";
 }
 
 class ProductionConfig extends Config {
@@ -28,7 +28,6 @@ class ProductionConfig extends Config {
 // mysql://user:password@host/database?reconnect=true
 // mysql://b685b7d7b43385:ab80a4ae@eu-cdbr-west-02.cleardb.net/heroku_6a03ee6fa43d6ce?reconnect=true
 
-const config = process.env.NODE_ENV === "development" ? new DevelopmentConfig() : new ProductionConfig();
-console.log(config);
+const config = process.env.NODE_ENV === "production" ? new ProductionConfig() : new DevelopmentConfig();
 
 export default config;

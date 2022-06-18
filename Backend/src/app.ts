@@ -8,31 +8,35 @@ import vacationsController from "./6-controllers/vacations-controller";
 import expressFileUpload from "express-fileupload";
 import config from "./2-utils/config";
 import path from "path";
+import socketLogic from "./5-logic/socket-logic";
 
 
-const server = express();
+const expressServer = express();
 
-server.use(cors());
-server.use(express.json());
-server.use(expressFileUpload());
+expressServer.use(cors({ origin: "*" }));
+expressServer.use(express.json());
+expressServer.use(expressFileUpload());
 
+// expressServer.use(logRequest);
+expressServer.use("/api", usersController);
+expressServer.use("/api", vacationsController);
 
-// server.use(logRequest);
+// Send back index.html which must exists in "7-frontend" folder when surfing to root address (https://www.mysite.com):
+expressServer.use(express.static(path.join(__dirname, "./7-frontend")));
 
-
-server.use("/api", usersController);
-server.use("/api", vacationsController);
-
-if (config.isDevelopment) {
-    server.use("*", (req: Request, res: Response, next: NextFunction) => {
-        const error = new RouteNotFoundError(req.method, req.originalUrl);
+// If user surf to some unknown page (https://www.mysite.com/nopagehere) return also index so 404 will be presented by react:
+expressServer.use("*", (req: Request, res: Response, next: NextFunction) => {
+    if (config.isDevelopment) {
+        const error = new RouteNotFoundError(req.method, req.originalUrl);        
         next(error);
-    });
-}
-else {
-    response.sendFile(path.join(__dirname, "./7-frontend/index.html"));
-}
+    }
+    else {
+        response.sendFile(path.join(__dirname, "./7-frontend/index.html"));
+    }
+});
 
-server.use(catchAll);
+expressServer.use(catchAll);
 
-server.listen(config.port, () => console.log("Listening..."));
+const httpServer = expressServer.listen(config.port, () => console.log("Listening..."));
+
+socketLogic.init(httpServer); 

@@ -18,10 +18,10 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `vacation-tag`
+-- Database: `vacation-manager`
 --
-CREATE DATABASE IF NOT EXISTS `vacation-tag` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `vacation-tag`;
+CREATE DATABASE IF NOT EXISTS `vacation-manager` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `vacation-manager`;
 
 -- --------------------------------------------------------
 

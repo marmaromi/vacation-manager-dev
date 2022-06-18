@@ -8,6 +8,7 @@ const router = express.Router();
 
 router.post("/users/register", async (req: Request, res: Response, next: NextFunction) => {
     try {
+
         const user = new UserModel(req.body)
         const token = await usersLogic.register(user);
         res.status(201).json(token);

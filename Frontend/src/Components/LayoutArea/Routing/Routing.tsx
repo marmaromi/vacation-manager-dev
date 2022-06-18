@@ -1,4 +1,6 @@
+import { useEffect, useState } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
+import { store } from "../../../Redux/Store";
 import About from "../../AboutArea/About/About";
 import Login from "../../AuthArea/login/login";
 import Logout from "../../AuthArea/logout/logout";
@@ -12,6 +14,9 @@ import "./Routing.css";
 function Routing(): JSX.Element {
     return (
         <div className="Routing">
+
+            {/* need to add routing when not logged in */}
+
             <Routes>
 
                 <Route path="/register" element={<Register />} />
@@ -22,11 +27,12 @@ function Routing(): JSX.Element {
                 <Route path="/vacations/new" element={<AddVacation />} />
                 <Route path="/vacations/edit/:vacationId" element={<EditVacation />} />
 
+                <Route path="/reports" element={<EditVacation />} />
+
                 <Route path="/about" element={<About />} />
 
                 <Route path="" element={<Navigate to="/vacations" />} />
                 <Route path="*" element={<PageNotFound />} />
-
 
             </Routes>
         </div>

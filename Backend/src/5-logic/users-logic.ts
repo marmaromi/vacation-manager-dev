@@ -21,6 +21,8 @@ const register = async (user: UserModel): Promise<string> => {
 
     const result: OkPacket = await dal.execute(sql);
     user.id = result.insertId;
+    
+    
     const token = cyber.getNewToken(user);
 
     return token;
@@ -30,14 +32,14 @@ const login = async (credentials: CredentialsModel): Promise<string> => {
 
     credentials.username = credentials.username.toLocaleLowerCase();
 
-    const sql = `SELECT username, privileges, password FROM users WHERE username = '${credentials.username}' AND password = '${credentials.password}'`
+    const sql = `SELECT username, privileges, password, firstName, lastName FROM users WHERE username = '${credentials.username}' AND password = '${credentials.password}'`
     const user = await dal.execute(sql);    
 
     if (!user[0]) { 
         throw new ValidationError(`Incorrect username or password`);
     }
-
-    const token = cyber.getNewToken(user);
+    
+    const token = cyber.getNewToken(user[0]);
 
     return token;
 }

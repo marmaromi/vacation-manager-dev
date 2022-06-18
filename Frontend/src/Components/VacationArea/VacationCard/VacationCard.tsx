@@ -12,7 +12,7 @@ function VacationCard(props: VacationCardProps): JSX.Element {
     
 
     return (
-        <div className="VacationCard">
+        <div className="VacationCard Box">
 
 
             <div>
