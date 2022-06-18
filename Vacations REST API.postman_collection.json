@@ -33,7 +33,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3002/api/vacations/7",
+					"raw": "http://localhost:3002/api/vacations/1",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -42,7 +42,7 @@
 					"path": [
 						"api",
 						"vacations",
-						"7"
+						"1"
 					]
 				}
 			},
@@ -73,6 +73,67 @@
 						"api",
 						"vacations",
 						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add newVacation with form data",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "description",
+							"value": "Culinary trip to Paris",
+							"type": "text"
+						},
+						{
+							"key": "destination",
+							"value": "Paris",
+							"type": "text"
+						},
+						{
+							"key": "startDate",
+							"value": "2022-06-26",
+							"type": "text"
+						},
+						{
+							"key": "endDate",
+							"value": "2022-06-30",
+							"type": "text"
+						},
+						{
+							"key": "price",
+							"value": "2500",
+							"type": "text"
+						},
+						{
+							"key": "followers",
+							"value": "5",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/C:/Users/Ido/Downloads/paris-food-guide7.jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3002/api/vacations",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3002",
+					"path": [
+						"api",
+						"vacations"
 					]
 				}
 			},
@@ -140,7 +201,7 @@
 						{
 							"key": "image",
 							"type": "file",
-							"src": "/C:/Users/Ido/Downloads/paris-food-guide7.jpg"
+							"src": "/E:/Dropbox/Study/Web/web_jb/projects/Project3/Backend/src/1-asstes/images/paris-food-guide7.jpg"
 						}
 					]
 				},
