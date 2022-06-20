@@ -26,6 +26,7 @@ expressServer.use(express.static(path.join(__dirname, "./7-frontend")));
 
 // If user surf to some unknown page (https://www.mysite.com/nopagehere) return also index so 404 will be presented by react:
 expressServer.use("*", (req: Request, res: Response, next: NextFunction) => {
+    
     if (config.isDevelopment) {
         const error = new RouteNotFoundError(req.method, req.originalUrl);        
         next(error);

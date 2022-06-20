@@ -30,7 +30,7 @@ function AddVacation(): JSX.Element {
             navigate("/vacations");
         }
         catch (err: any) {
-            notifyService.error(err);
+            notifyService.error(err.message);
         }
     }
 
@@ -60,9 +60,10 @@ function AddVacation(): JSX.Element {
                 <br />
 
                 <label>Start Date: </label>
-                <input id="start-date" type="date" min={new Date().toISOString().slice(0, -14)} {...register("startDate", {
+                <input type="date" min={new Date().toISOString().slice(0, -14)} max={getValues("endDate")} {...register("startDate", {
                     required: { value: true, message: "Missing start date" },
-                    min: { value: new Date().toISOString().slice(0, -14), message: "Start date must be today or later" }
+                    min: { value: new Date().toISOString().slice(0, -14), message: "Start date must be today or later" },
+                    max: { value: getValues("endDate"), message: "Start date must be today or later" }
                 })} />
                 <span>{errors.startDate?.message}</span>
                 <br />

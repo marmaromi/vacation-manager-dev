@@ -35,7 +35,6 @@ router.get("/vacations/:id([0-9]+)", verifyLogIn, async (req: Request, res: Resp
 
 router.post("/vacations", verifyAdmin, async (req: Request, res: Response, next: NextFunction) => {
     try {
-        console.log(req.body);
         
         req.body.image = req.files?.image;
         const vacation = new VacationModel(req.body)
