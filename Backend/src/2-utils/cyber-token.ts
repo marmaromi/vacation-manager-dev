@@ -42,13 +42,13 @@ const verifyToken = (req: Request): Promise<boolean> => {
 }
 
 const getTokenRole = (request: Request): Role => {
-    
+
     const header = request.headers.authorization;
     const token = header.substring(7);
     const payload = jwt.decode(token);
     const user = (payload as any).user;
     // console.log(header);
-    
+
     return user.privileges;
 }
 

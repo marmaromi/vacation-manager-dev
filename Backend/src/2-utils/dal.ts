@@ -9,14 +9,14 @@ const connection = mysql.createPool({
     database: config.sqlDatabase // database name
 });
 
-function execute(sql: string): Promise<any> { // Promisify
+function execute(sql: string, values?: any[]): Promise<any> { // Promisify
 
     return new Promise<any>((resolve, reject) => {
-        
-        connection.query(sql, (error, result) => { // If error - first object will contain error, if no error - second object will contain result
+
+        connection.query(sql, values, (error, result) => { // If error - first object will contain error, if no error - second object will contain result
 
             // If there is an error: 
-            if(error) {
+            if (error) {
                 reject(error);
                 return;
             }

@@ -2,7 +2,8 @@ import { OkPacket } from "mysql";
 import dal from "../2-utils/dal";
 import { ResourceNotFoundError, ValidationError } from "../4-models/errors-model";
 import UserModel from "../4-models/user-model";
-import cyber from "../2-utils/cyber"
+import cyberToken from "../2-utils/cyber-token"
+import hash from "../2-utils/cyber-hash";
 import CredentialsModel from "../4-models/credentials-model";
 
 
@@ -17,13 +18,16 @@ const register = async (user: UserModel): Promise<string> => {
         throw new ValidationError(`username ${user.username} already exists`);
     }
 
-    const sql = `INSERT INTO users VALUES(DEFAULT, '${user.firstName}', '${user.lastName}', '${user.username}', '${user.password}','user')`;
+    user.password = hash(user.password);
 
-    const result: OkPacket = await dal.execute(sql);
+    const sql = `INSERT INTO users VALUES(DEFAULT, ?, ?, ?, ?,'user')`;
+    const values = [user.firstName, user.lastName, user.username, user.password];
+
+    const result: OkPacket = await dal.execute(sql, values);
     user.id = result.insertId;
-    
-    
-    const token = cyber.getNewToken(user);
+
+
+    const token = cyberToken.getNewToken(user);
 
     return token;
 }
@@ -31,19 +35,21 @@ const register = async (user: UserModel): Promise<string> => {
 const login = async (credentials: CredentialsModel): Promise<string> => {
 
     credentials.username = credentials.username.toLocaleLowerCase();
+    credentials.password = hash(credentials.password);
 
     const sql = `SELECT username, privileges, password, firstName, lastName FROM users WHERE username = '${credentials.username}' AND password = '${credentials.password}'`
-    const user = await dal.execute(sql);    
+    const user = await dal.execute(sql);
 
-    if (!user[0]) { 
+    if (!user[0]) {
         throw new ValidationError(`Incorrect username or password`);
     }
-    
-    const token = cyber.getNewToken(user[0]);
+
+    delete user[0].password;
+
+    const token = cyberToken.getNewToken(user[0]);
 
     return token;
 }
-
 
 const usernameExists = async (username: string): Promise<boolean> => {
     const sql = `SELECT EXISTS(SELECT username FROM users WHERE username = '${username}') AS isExists`;
@@ -56,8 +62,6 @@ const usernameExists = async (username: string): Promise<boolean> => {
 export default {
     register,
     login
-
-
 }
 
 // const getAllUsers = async (): Promise<UserModel[]> => {

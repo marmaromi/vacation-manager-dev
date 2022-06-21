@@ -17,7 +17,7 @@ function AddVacation(): JSX.Element {
         if (!store.getState().authStore?.token) {
             navigate("/login");
         }
-        
+
         if (store.getState().authStore?.user?.privileges !== "admin") {
             navigate("/vacations");
         }
@@ -35,7 +35,7 @@ function AddVacation(): JSX.Element {
     }
 
     return (
-        <div className="AddVacation">
+        <div className="AddVacation Box">
             <h2>New Vacation</h2>
 
             <form onSubmit={handleSubmit(send)}>
@@ -51,11 +51,11 @@ function AddVacation(): JSX.Element {
                 <br />
 
                 <label>Description: </label>
-                <input type="text"  {...register("description", {
+                <textarea rows={4} cols={20}  {...register("description", {
                     required: { value: true, message: "Missing description" },
                     minLength: { value: 10, message: "Minimum 10 letters" },
                     maxLength: { value: 300, message: "Maximum 300 letters" },
-                })} />
+                })} ></textarea>
                 <span>{errors.description?.message}</span>
                 <br />
 

@@ -60,11 +60,11 @@ const addVacation = async (vacation: VacationModel): Promise<VacationModel> => {
         delete vacation.image;
     }
 
-    const sql = `INSERT INTO vacations 
-    VALUES(DEFAULT, '${vacation.description}', '${vacation.destination}', '${vacation.startDate}',
-     '${vacation.endDate}',${vacation.price}, '${vacation.imageName}', 0)`;
+    const sql = `INSERT INTO vacations VALUES(DEFAULT, ?, ?, ?, ?, ?, ?, 0)`;
 
-    const result: OkPacket = await dal.execute(sql);
+    const values = [vacation.description, vacation.destination, vacation.startDate, vacation.endDate, vacation.price, vacation.imageName]
+
+    const result: OkPacket = await dal.execute(sql, values);
     vacation.id = result.insertId;
     return vacation;
 }
@@ -96,15 +96,20 @@ async function updateVacation(vacation: VacationModel): Promise<VacationModel> {
         delete vacation.image;
     }
 
+    // const sql = `UPDATE vacations 
+    //              SET description = '${vacation.description}',
+    //                  destination = '${vacation.destination}',
+    //                  startDate = '${vacation.startDate}',
+    //                  endDate = '${vacation.endDate}',
+    //                  price = ${vacation.price},
+    //                  imageName = '${vacation.imageName}',
+    //                  followers = ${vacation.followers}
+    //              WHERE vacationId = ${vacation.id}`;
     const sql = `UPDATE vacations 
-                 SET description = '${vacation.description}',
-                     destination = '${vacation.destination}',
-                     startDate = '${vacation.startDate}',
-                     endDate = '${vacation.endDate}',
-                     price = ${vacation.price},
-                     imageName = '${vacation.imageName}',
-                     followers = ${vacation.followers}
+                 SET description = ?, destination = ?, startDate = ?, endDate = ?, price = ?, imageName = ?, followers = ?
                  WHERE vacationId = ${vacation.id}`;
+
+    const values = [vacation.description, vacation.destination, vacation.startDate, vacation.endDate, vacation.price, vacation.imageName, vacation.followers]
 
     const result: OkPacket = await dal.execute(sql);
     if (result.affectedRows === 0) {

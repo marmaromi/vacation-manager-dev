@@ -67,22 +67,21 @@ router.delete("/vacations/:id([0-9]+)", verifyAdmin, async (req: Request, res: R
         res.sendStatus(204);
 
     } catch (error) {
-        next(error);
+        next(error); 
     }
 });
 
-router.get("/vacations/images/:imageName", verifyLogIn, async (request: Request, response: Response, next: NextFunction) => {
+router.get("/vacations/images/:imageName", verifyLogIn, async (req: Request, res: Response, next: NextFunction) => {
     try {
 
-        const imageName = request.params.imageName;
-
+        const imageName = req.params.imageName;        
         const absolutePath = path.join(__dirname, "..", "1-assets", "images", imageName);
-
+            
         if (!fs.existsSync(absolutePath)) {
-            throw new RouteNotFoundError(request.method, request.originalUrl);
+            throw new RouteNotFoundError(req.method, req.originalUrl);
         }
-
-        response.sendFile(absolutePath);
+         
+        res.sendFile(absolutePath);
     }
 
     catch (error) {

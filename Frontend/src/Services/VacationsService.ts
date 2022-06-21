@@ -14,8 +14,22 @@ class VacationsService {
             vacations = response.data;
             store.dispatch(getAllVacationsAction(vacations));
         }
+
         return vacations;
     }
+
+    // private async getOneVacation(vacationId: number): Promise<VacationModel> {
+    //     const vacations = store.getState().vacationsStore.vacations;
+    //     let vacation = vacations.find(v => v.id === vacationId);
+
+    //     if (!vacation) {
+    //         const response = await axios.get<VacationModel>(config.vacationsUrl + vacationId);
+    //         vacation = response.data;
+    //         store.dispatch(getAllVacationsAction(vacations));
+    //     }
+
+    //     return vacation;
+    // }
 
     public async addVacation(vacation: VacationModel): Promise<VacationModel> {
 
@@ -25,8 +39,8 @@ class VacationsService {
         formData.append("startDate", vacation.startDate);
         formData.append("endDate", vacation.endDate);
         formData.append("price", vacation.price.toString());
-        formData.append("image", vacation.image.item(0));        
-        
+        formData.append("image", vacation.image.item(0));
+
         const response = await axios.post<VacationModel>(config.vacationsUrl, formData);
         const newVacation = response.data;
 
@@ -44,6 +58,15 @@ class VacationsService {
     public async deleteProduct(id: number): Promise<void> {
         await axios.delete(config.vacationsUrl + id)
         store.dispatch(deleteVacationAction(id));
+    }
+
+    public async getVacationImage(imageName: string): Promise<FileList> {
+
+        const response = await axios.get<FileList>(config.vacationImagesUrl + imageName);
+        const image = response.data;
+        // console.log(image);
+
+        return image;
     }
 }
 
