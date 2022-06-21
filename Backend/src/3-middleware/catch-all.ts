@@ -2,7 +2,8 @@ import { NextFunction, Request, Response } from "express";
 import config from "../2-utils/config";
 
 async function catchAll(error: any, req: Request, res: Response, next: NextFunction) {
-
+    console.log(error);
+    
     let status: any;
     let message: string;
 
