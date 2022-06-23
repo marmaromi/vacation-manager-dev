@@ -24,11 +24,8 @@ function VacationCard(props: VacationCardProps): JSX.Element {
     //         .catch(err => notifyService.error(err.message));
     // }, [])
 
-
-
     const startDate = new Date(props.vacation.startDate).toLocaleDateString("he-il");
     const endDate = new Date(props.vacation.endDate).toLocaleDateString("he-il");
-
 
     return (
         <div className="VacationCard Box" >
