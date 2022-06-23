@@ -71,7 +71,8 @@ router.delete("/vacations/:id([0-9]+)", verifyAdmin, async (req: Request, res: R
     }
 });
 
-router.get("/vacations/images/:imageName", verifyLogIn, async (req: Request, res: Response, next: NextFunction) => {
+// router.get("/vacations/images/:imageName", verifyLogIn, async (req: Request, res: Response, next: NextFunction) => {
+router.get("/vacations/images/:imageName", async (req: Request, res: Response, next: NextFunction) => {
     try {
 
         const imageName = req.params.imageName;        

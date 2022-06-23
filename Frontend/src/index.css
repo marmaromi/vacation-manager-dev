@@ -3,24 +3,25 @@ html, body, #root {
   padding: 0;
   height: 100%;
   text-align: center;
-  /* background-image: linear-gradient(45deg, lightblue, white); */
+  background-color: #E8F9FD;
   font-family: sans-serif;
+  color: #2155CD
 }
 
 .Box {
   display: inline-block;
   margin: 10px;
   padding: 10px;
-  border: 1px solid rgb(114, 114, 114);
+  /* border: 1px solid rgb(114, 114, 114); */
   border-radius: 10px;
-  box-shadow: 1px 1px 5px ;
+  /* box-shadow: 1px 1px 5px ; */
   text-align: left;
 }
 
-.Box > p {
+.Box>p {
   margin: 0;
 }
 
 a {
-  color: black;
+  color: #2155CD
 }

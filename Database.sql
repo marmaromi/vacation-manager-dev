@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 06, 2022 at 12:19 PM
+-- Generation Time: Jun 23, 2022 at 09:14 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -34,8 +34,8 @@ CREATE TABLE `users` (
   `firstName` varchar(30) NOT NULL,
   `lastName` varchar(50) NOT NULL,
   `username` varchar(100) NOT NULL,
-  `password` varchar(50) NOT NULL,
-  `privileges` varchar(10) NOT NULL DEFAULT 'user'
+  `password` varchar(128) NOT NULL,
+  `privileges` varchar(5) NOT NULL DEFAULT 'user'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -43,18 +43,19 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`userId`, `firstName`, `lastName`, `username`, `password`, `privileges`) VALUES
-(1, 'Yoni', 'Cohen', 'admin', 'Aa123456!', 'admin'),
-(2, 'Liza', 'Koren', 'liza', 'Bb123456@', 'user'),
-(3, 'Moris', 'Katz', 'moris', 'Aa12345@', 'user'),
-(4, 'Adi', 'Sasson', 'adisasson', 'Qwerty123#', 'user'),
-(5, 'Matan', 'Chen', 'matan', 'Aa123456!', 'user'),
-(6, 'Liat', 'Saban', 'liat', 'Dd123456!', 'user'),
-(7, 'Liza', 'Lavi', 'Lizala', 'Zz123456$', 'user'),
-(8, 'Moran', 'Tal', 'moran', '123456Aa!', 'user'),
-(9, 'Adam', 'Ben-Eden', 'adam', 'Aa123456!', 'user'),
-(10, 'Eve', 'Bat-Eden', 'eve', 'Aa123456!', 'user'),
-(11, 'Idan', 'Levin', 'idan', 'Aa123456!', 'user'),
-(15, 'Moti', 'Mualem', 'moti', 'Aa123456!', 'user');
+(1, 'Ido', 'Marom', 'admin', '970fd80ea8466e45106c9fa9ba6a0c0a02dfaac5d2af769111a9c611c7d0bf058ba8a3a6f8cf5f33a3ccaee600654f2d2f2ec29bd1a86b0af5f9df47ed03ed5b', 'admin'),
+(2, 'Liza', 'Koren', 'liza', '970fd80ea8466e45106c9fa9ba6a0c0a02dfaac5d2af769111a9c611c7d0bf058ba8a3a6f8cf5f33a3ccaee600654f2d2f2ec29bd1a86b0af5f9df47ed03ed5b', 'user'),
+(3, 'Moris', 'Katz', 'moris', '970fd80ea8466e45106c9fa9ba6a0c0a02dfaac5d2af769111a9c611c7d0bf058ba8a3a6f8cf5f33a3ccaee600654f2d2f2ec29bd1a86b0af5f9df47ed03ed5b', 'user'),
+(4, 'Adi', 'Sasson', 'adisasson', '970fd80ea8466e45106c9fa9ba6a0c0a02dfaac5d2af769111a9c611c7d0bf058ba8a3a6f8cf5f33a3ccaee600654f2d2f2ec29bd1a86b0af5f9df47ed03ed5b', 'user'),
+(5, 'Matan', 'Chen', 'matan', '970fd80ea8466e45106c9fa9ba6a0c0a02dfaac5d2af769111a9c611c7d0bf058ba8a3a6f8cf5f33a3ccaee600654f2d2f2ec29bd1a86b0af5f9df47ed03ed5b', 'user'),
+(6, 'Liat', 'Saban', 'liat', '970fd80ea8466e45106c9fa9ba6a0c0a02dfaac5d2af769111a9c611c7d0bf058ba8a3a6f8cf5f33a3ccaee600654f2d2f2ec29bd1a86b0af5f9df47ed03ed5b', 'user'),
+(7, 'Liza', 'Lavi', 'Lizala', '970fd80ea8466e45106c9fa9ba6a0c0a02dfaac5d2af769111a9c611c7d0bf058ba8a3a6f8cf5f33a3ccaee600654f2d2f2ec29bd1a86b0af5f9df47ed03ed5b', 'user'),
+(8, 'Moran', 'Tal', 'moran', '970fd80ea8466e45106c9fa9ba6a0c0a02dfaac5d2af769111a9c611c7d0bf058ba8a3a6f8cf5f33a3ccaee600654f2d2f2ec29bd1a86b0af5f9df47ed03ed5b', 'user'),
+(9, 'Adam', 'Ben-Eden', 'adam', '970fd80ea8466e45106c9fa9ba6a0c0a02dfaac5d2af769111a9c611c7d0bf058ba8a3a6f8cf5f33a3ccaee600654f2d2f2ec29bd1a86b0af5f9df47ed03ed5b', 'user'),
+(10, 'Eve', 'Bat-Eden', 'eve', '970fd80ea8466e45106c9fa9ba6a0c0a02dfaac5d2af769111a9c611c7d0bf058ba8a3a6f8cf5f33a3ccaee600654f2d2f2ec29bd1a86b0af5f9df47ed03ed5b', 'user'),
+(11, 'Idan', 'Levin', 'idan', '970fd80ea8466e45106c9fa9ba6a0c0a02dfaac5d2af769111a9c611c7d0bf058ba8a3a6f8cf5f33a3ccaee600654f2d2f2ec29bd1a86b0af5f9df47ed03ed5b', 'user'),
+(15, 'Moti', 'Mualem', 'moti', '970fd80ea8466e45106c9fa9ba6a0c0a02dfaac5d2af769111a9c611c7d0bf058ba8a3a6f8cf5f33a3ccaee600654f2d2f2ec29bd1a86b0af5f9df47ed03ed5b', 'user'),
+(18, 'Yoni', 'Cohen', 'yoni', '970fd80ea8466e45106c9fa9ba6a0c0a02dfaac5d2af769111a9c611c7d0bf058ba8a3a6f8cf5f33a3ccaee600654f2d2f2ec29bd1a86b0af5f9df47ed03ed5b', 'user');
 
 -- --------------------------------------------------------
 
@@ -105,10 +106,11 @@ CREATE TABLE `vacations` (
 --
 
 INSERT INTO `vacations` (`vacationId`, `description`, `destination`, `startDate`, `endDate`, `price`, `imageName`, `followers`) VALUES
-(1, 'Culinary trip to Paris', 'Paris', '2022-06-26', '2022-06-30', 2500, '', 5),
-(2, 'Psychdelic trip to Amsterdam', 'Amsterdam', '2022-06-12', '2022-06-18', 4000, '', 3),
-(3, 'Enjoy Thailand\'s best islands and beaches', 'Thailand', '2022-07-03', '2022-07-24', 10000, '', 2),
-(8, 'A Romantic trip to Rome', 'Rome', '2022-06-20', '2022-06-30', 3500, 'bbb.jpg', 0);
+(1, 'Culinary trip to Paris', 'Paris', '2022-06-26', '2022-06-30', 2500, '0fcb7bd3-1962-4516-91ad-d608ef47bd5d.jpg', 5),
+(2, 'Psychdelic trip to Amsterdam', 'Amsterdam', '2022-06-12', '2022-06-18', 4000, '4cbcbd54-ef8f-434c-8153-e177dc48d428.jpg', 3),
+(3, 'Enjoy Thailand\'s best islands and beaches', 'Thailand', '2022-07-03', '2022-07-24', 10000, '3b1595e4-ffd4-44c8-b035-305e6904c66e.jpg', 2),
+(8, 'A Romantic trip to Rome', 'Rome', '2022-06-20', '2022-06-30', 3500, '138922fc-aa63-46a4-bb60-11f1d5b678b9.jpg', 0),
+(13, 'A tip to California\'s best vineyards', 'California - United States', '2022-08-01', '2022-08-31', 15000, '3a1ebb4b-e100-445b-a89f-3ac5821ba03e.jpg', 0);
 
 --
 -- Indexes for dumped tables
@@ -141,13 +143,13 @@ ALTER TABLE `vacations`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `userId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `userId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `vacations`
 --
 ALTER TABLE `vacations`
-  MODIFY `vacationId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `vacationId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- Constraints for dumped tables

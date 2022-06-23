@@ -1,3 +1,10 @@
 .VacationCard {
-	
+    background-color: #79DAE8;
+}
+
+.VacationCard img {
+    max-width: 400px;
+    height: auto;
+    border-radius: 10px;
+
 }

@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
 import VacationModel from "../../../Models/Vacation Model";
-import notifyService from "../../../Services/NotifyService";
-import vacationsService from "../../../Services/VacationsService";
+// import notifyService from "../../../Services/NotifyService";
+// import vacationsService from "../../../Services/VacationsService";
+import config from "../../../Utils/config";
 import "./VacationCard.css";
 
 interface VacationCardProps {
@@ -10,18 +11,18 @@ interface VacationCardProps {
 
 function VacationCard(props: VacationCardProps): JSX.Element {
 
-    const [imgSrc, setImgSrc] = useState<FileList>();
+    // const [imgSrc, setImgSrc] = useState<FileList>();
 
 
-    useEffect(() => {
-        vacationsService.getVacationImage(props.vacation.imageName)
-            .then(image => {
-                // console.log(image);
+    // useEffect(() => {
+    //     vacationsService.getVacationImage(props.vacation.imageName)
+    //         .then(image => {
+    //             console.log(image);
                 
-                setImgSrc(image)
-            })
-            .catch(err => notifyService.error(err.message));
-    }, [])
+    //             setImgSrc(image)
+    //         })
+    //         .catch(err => notifyService.error(err.message));
+    // }, [])
 
 
 
@@ -30,7 +31,7 @@ function VacationCard(props: VacationCardProps): JSX.Element {
 
 
     return (
-        <div className="VacationCard Box">
+        <div className="VacationCard Box" >
 
 
             <div>
@@ -42,7 +43,7 @@ function VacationCard(props: VacationCardProps): JSX.Element {
 
             <div>
                 {/* <img src={imgSrc} /> */}
-                {/* <img src={config.vacationImagesUrl + props.vacation.imageName} /> */}
+                <img src={config.vacationImagesUrl + props.vacation.imageName} />
             </div>
 
         </div>
