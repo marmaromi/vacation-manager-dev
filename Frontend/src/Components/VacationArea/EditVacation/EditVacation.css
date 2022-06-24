@@ -1,3 +1,33 @@
 .EditVacation {
-	
+    background-color: #7bcc7594;
+    padding-inline: 15px;
+}
+
+.EditVacation h2 {
+    text-align: center;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+.EditVacation label {
+    width: 100px;
+}
+
+.EditVacation input, .EditVacation textarea, .EditVacation button {
+    display: flex;
+    width: 100%;
+    background-color: #d9eed8;
+    border-radius: 5px;
+    border-width: 0px;
+    margin-right: 5px;
+}
+
+.EditVacation button {
+    display: grid;
+    margin: auto;
+}
+
+.EditVacation .error {
+    color: rgb(208, 2, 2);
+    font-size: medium;
 }

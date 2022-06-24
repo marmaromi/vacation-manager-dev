@@ -1,10 +1,59 @@
 .VacationCard {
-    background-color: #79DAE8;
+    background-color: #7bcc7594;
+    position: relative;
+}
+
+
+.VacationCard .textProp {
+    font-weight: bold;
+    color: #413F42;
+    text-shadow: -1px 1px 0 #E0DECA, 1px 1px 0 #E0DECA, 1px -1px 0 #E0DECA, -1px -1px 0 #E0DECA;
 }
 
 .VacationCard img {
     max-width: 400px;
-    height: auto;
+    height: 300px;
+    object-fit: cover;
     border-radius: 10px;
+}
 
+.VacationCard .bottomLeftImage {
+    position: absolute;
+    top: 235px;
+    left: 16px;
+    font-size: x-large
+}
+
+.VacationCard .topLeftImage {
+    position: absolute;
+    top: 15px;
+    left: 20px;
+    font-size: xx-large
+}
+
+.VacationCard .bottomRight {
+    position: absolute;
+    bottom: 10px;
+    right: 15px;
+}
+
+.VacationCard button {
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    border: none;
+    background-color: transparent;
+}
+
+.VacationCard .dateAndPrice {
+    color: #545454;
+    margin-top: 8px;
+    margin-left: 2px;
+    text-shadow: none;
+}
+
+.VacationCard .bottomRight img {
+    padding-bottom: 3px;
+    width: 25px;
+    height: auto;
 }

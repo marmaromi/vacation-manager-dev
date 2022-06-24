@@ -14,7 +14,7 @@ function Layout(): JSX.Element {
             const user = store.getState().authStore.user;
             if (user?.privileges === 'admin') {
                 setRole(user.privileges);
-                
+
             } else {
                 setRole('')
             }
@@ -22,13 +22,16 @@ function Layout(): JSX.Element {
 
         return () => unsubscribe();
 
-    }, [])
+    }, []);
 
     return (
         <div className="Layout">
-            <header> <Header /> </header>
-            {role === 'admin' && <aside> <AdminArea /> </aside>}
-            <main> <Routing /> </main>
+            <div className="content-wrap">
+                {role === 'admin' && <aside> <AdminArea /> </aside>}
+                <header> <Header /> </header>
+                <main> <Routing /> </main>
+            </div>
+
             <footer> <Footer /> </footer>
 
         </div>

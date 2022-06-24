@@ -37,7 +37,11 @@ function Logout(): JSX.Element {
 
     return (
         <div className="logout">
-            {user && <span>Hello {user.firstName} {user.lastName}! | <button className="btn btn-link" onClick={logout}>Logout</button></span>}
+            {
+            user?.privileges === "admin" && <span className="admin">Hello {user.firstName} {user.lastName}! | <button onClick={logout}>Logout</button></span>
+            ||
+            user?.privileges === "user" && <span className="user">Hello {user.firstName} {user.lastName}! | <button onClick={logout}>Logout</button></span>
+            }
         </div>
     );
 }

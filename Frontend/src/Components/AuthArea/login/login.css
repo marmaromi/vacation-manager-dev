@@ -1,3 +1,33 @@
 .login {
-	
+    background-color: #7bcc7594;
+    padding-inline: 15px;
+}
+
+.login h2 {
+    text-align: center;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+.login label {
+    width: 100px;
+}
+
+.login input, .login button {
+    display: flex;
+    width: 100%;
+    background-color: #d9eed8;
+    border-radius: 5px;
+    border-width: 0px;
+    margin-right: 5px;
+}
+
+.login button {
+    display: grid;
+    margin: auto;
+}
+
+.login .error {
+    color: rgb(208, 2, 2);
+    font-size: medium;
 }

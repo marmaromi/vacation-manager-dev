@@ -6,6 +6,7 @@ import UserModel from "../../../Models/UserModel";
 import { store } from "../../../Redux/Store";
 import authService from "../../../Services/AuthService";
 import notifyService from "../../../Services/NotifyService";
+import "./register.css";
 
 function Register(): JSX.Element {
 
@@ -31,7 +32,7 @@ function Register(): JSX.Element {
     }
 
     return (
-        <div className="register">
+        <div className="register Box">
 
             <h2>Register</h2>
 

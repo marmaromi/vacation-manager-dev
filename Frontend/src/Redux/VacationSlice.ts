@@ -19,7 +19,7 @@ export const vacationsSlice = createSlice({
         addVacationsAction: (state, action: PayloadAction<VacationModel>) => {
             state.vacations.push(action.payload);
         },
-        updateVacationAction: (state, action: PayloadAction<VacationModel>) => {
+        editVacationAction: (state, action: PayloadAction<VacationModel>) => {
             const indexToUpdate = state.vacations.findIndex(vac => vac.id === action.payload.id);
             if (indexToUpdate >= 0) {
                 state.vacations[indexToUpdate] = action.payload;
@@ -34,6 +34,6 @@ export const vacationsSlice = createSlice({
     }
 })
 
-export const { getAllVacationsAction, addVacationsAction, updateVacationAction, deleteVacationAction } = vacationsSlice.actions;
+export const { getAllVacationsAction, addVacationsAction, editVacationAction, deleteVacationAction } = vacationsSlice.actions;
 
 export default vacationsSlice.reducer;

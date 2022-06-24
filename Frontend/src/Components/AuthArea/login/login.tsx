@@ -32,7 +32,7 @@ function Login(): JSX.Element {
 
 
     return (
-        <div className="login">
+        <div className="login Box">
             <h2>Login</h2>
 
             <form onSubmit={handleSubmit(send)}>

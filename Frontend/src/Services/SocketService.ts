@@ -1,7 +1,7 @@
 import { io, Socket } from "socket.io-client";
 import VacationModel from "../Models/Vacation Model";
 import { store } from "../Redux/Store";
-import { addVacationsAction, deleteVacationAction, updateVacationAction } from "../Redux/VacationSlice";
+import { addVacationsAction, deleteVacationAction, editVacationAction } from "../Redux/VacationSlice";
 import config from "../Utils/config";
 
 class SocketService {
@@ -19,8 +19,8 @@ class SocketService {
         });
 
         // Listen to updating by admin: 
-        this.socket.on("admin-updated-vacation", (vacation: VacationModel) => {
-            store.dispatch(updateVacationAction(vacation));
+        this.socket.on("admin-edited-vacation", (vacation: VacationModel) => {
+            store.dispatch(editVacationAction(vacation));
         });
 
         // Listen to deleting by admin: 

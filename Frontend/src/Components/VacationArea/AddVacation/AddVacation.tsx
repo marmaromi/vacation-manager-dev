@@ -11,6 +11,7 @@ function AddVacation(): JSX.Element {
 
     const navigate = useNavigate();
     const { register, handleSubmit, formState: { errors }, getValues } = useForm<VacationModel>();
+    const [vacation, setVacation] = useState<VacationModel>();
 
     useEffect(() => {
 
@@ -21,6 +22,10 @@ function AddVacation(): JSX.Element {
         if (store.getState().authStore?.user?.privileges !== "admin") {
             navigate("/vacations");
         }
+
+        const vacations = store.getState().vacationsStore.vacations;
+        // setVacation(vacations.find(v=>v.id = ))
+
     }, [])
 
     async function send(vacation: VacationModel) {
@@ -47,7 +52,7 @@ function AddVacation(): JSX.Element {
                     minLength: { value: 2, message: "Minimum 2 letters" },
                     maxLength: { value: 50, message: "Maximum 50 letters" },
                 })} />
-                <span>{errors.destination?.message}</span>
+                <span className="error">{errors.destination?.message}</span>
                 <br />
 
                 <label>Description: </label>
@@ -56,7 +61,7 @@ function AddVacation(): JSX.Element {
                     minLength: { value: 10, message: "Minimum 10 letters" },
                     maxLength: { value: 300, message: "Maximum 300 letters" },
                 })} ></textarea>
-                <span>{errors.description?.message}</span>
+                <span className="error">{errors.description?.message}</span>
                 <br />
 
                 <label>Start Date: </label>
@@ -65,7 +70,7 @@ function AddVacation(): JSX.Element {
                     min: { value: new Date().toISOString().slice(0, -14), message: "Start date must be today or later" },
                     max: { value: getValues("endDate"), message: "Start date must be today or later" }
                 })} />
-                <span>{errors.startDate?.message}</span>
+                <span className="error">{errors.startDate?.message}</span>
                 <br />
 
                 <label>End Date: </label>
@@ -73,7 +78,7 @@ function AddVacation(): JSX.Element {
                     required: { value: true, message: "Missing end date" },
                     min: { value: getValues("startDate"), message: "End date must be later than start date" }
                 })} />
-                <span>{errors.endDate?.message}</span>
+                <span className="error">{errors.endDate?.message}</span>
                 <br />
 
                 <label>Price: </label>
@@ -82,17 +87,17 @@ function AddVacation(): JSX.Element {
                     min: { value: 200, message: "Minimum price 200₪" },
                     max: { value: 100000, message: "Maximum price 100,000₪" },
                 })} />
-                <span>{errors.price?.message}</span>
+                <span className="error">{errors.price?.message}</span>
                 <br />
 
-                <label>Image: </label>
-                <input type="file" accept="image/*" {...register("image", {
-                    required: { value: true, message: "Missing image" },
-                })} />
-                <span>{errors.image?.message}</span>
-                <br />
-
-
+                <div className="mb3">
+                    <label htmlFor="file" className="form-label">Image: </label>
+                    <input type="file" className="form-control" accept="image/*" {...register("image", {
+                        required: { value: true, message: "Missing image" },
+                    })} />
+                    <span className="error">{errors.image?.message}</span>
+                    <br />
+                </div>
 
                 <button>Add Vacation</button>
 

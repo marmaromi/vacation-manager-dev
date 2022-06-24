@@ -1,3 +1,33 @@
-.AddVacation  {
-    
+.AddVacation {
+    background-color: #7bcc7594;
+    padding-inline: 15px;
+}
+
+.AddVacation h2 {
+    text-align: center;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+.AddVacation label {
+    width: 100px;
+}
+
+.AddVacation input, .AddVacation textarea, .AddVacation button {
+    display: flex;
+    width: 100%;
+    background-color: #d9eed8;
+    border-radius: 5px;
+    border-width: 0px;
+    margin-right: 5px;
+}
+
+.AddVacation button {
+    display: grid;
+    margin: auto;
+}
+
+.AddVacation .error {
+    color: rgb(208, 2, 2);
+    font-size: medium;
 }

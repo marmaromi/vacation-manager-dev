@@ -1,11 +1,11 @@
 html, body, #root {
   margin: 0;
   padding: 0;
-  height: 100%;
   text-align: center;
-  background-color: #E8F9FD;
+  background-image: linear-gradient(to left bottom, #ebffe7, #e5fcdb, #e1f9cd, #dff6c0, #def2b1);
   font-family: sans-serif;
-  color: #2155CD
+  color: #413F42;
+  font-size: large
 }
 
 .Box {
@@ -20,8 +20,4 @@ html, body, #root {
 
 .Box>p {
   margin: 0;
-}
-
-a {
-  color: #2155CD
 }

@@ -1,7 +1,7 @@
 import axios from "axios";
 import VacationModel from "../Models/Vacation Model";
 import { store } from "../Redux/Store";
-import { addVacationsAction, deleteVacationAction, getAllVacationsAction, updateVacationAction } from "../Redux/VacationSlice";
+import { addVacationsAction, deleteVacationAction, getAllVacationsAction, editVacationAction } from "../Redux/VacationSlice";
 import config from "../Utils/config";
 
 class VacationsService {
@@ -18,18 +18,18 @@ class VacationsService {
         return vacations;
     }
 
-    // private async getOneVacation(vacationId: number): Promise<VacationModel> {
-    //     const vacations = store.getState().vacationsStore.vacations;
-    //     let vacation = vacations.find(v => v.id === vacationId);
+    public async getOneVacation(vacationId: number): Promise<VacationModel> {
+        const vacations = store.getState().vacationsStore.vacations;
+        let vacation = vacations.find(v => v.id === vacationId);
 
-    //     if (!vacation) {
-    //         const response = await axios.get<VacationModel>(config.vacationsUrl + vacationId);
-    //         vacation = response.data;
-    //         store.dispatch(getAllVacationsAction(vacations));
-    //     }
+        if (!vacation) {
+            const response = await axios.get<VacationModel>(config.vacationsUrl + vacationId);
+            vacation = response.data;
+            store.dispatch(getAllVacationsAction(vacations));
+        }
 
-    //     return vacation;
-    // }
+        return vacation;
+    }
 
     public async addVacation(vacation: VacationModel): Promise<VacationModel> {
 
@@ -48,15 +48,16 @@ class VacationsService {
         return newVacation;
     }
 
-    public async updateVacation(vacation: VacationModel): Promise<VacationModel> {
+    public async editVacation(vacation: VacationModel): Promise<VacationModel> {
+        
         const response = await axios.put<VacationModel>(config.vacationsUrl + vacation.id, vacation);
-        const updatedVacation = response.data;
-        store.dispatch(updateVacationAction(updatedVacation));
-        return updatedVacation;
+        const editedVacation = response.data;
+        store.dispatch(editVacationAction(editedVacation));
+        return editedVacation;
     }
 
-    public async deleteProduct(id: number): Promise<void> {
-        await axios.delete(config.vacationsUrl + id)
+    public async deleteVacation(id: number): Promise<void> {
+        await axios.delete<void>(config.vacationsUrl + id)
         store.dispatch(deleteVacationAction(id));
     }
 

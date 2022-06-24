@@ -1,3 +1,8 @@
-.AdminArea a{
+.AdminArea a {
+	color: #f5f5f7 !important;
 	text-decoration: none;
-}
+  }
+
+  .AdminArea a:hover {
+	color: #ffffff !important;
+  }

@@ -1,4 +1,6 @@
 .Header a, .Header a:hover {
-    color: #2155CD;
-    text-decoration: none;
+    color: rgba(0,0,0,0.8);
+    /* text-decoration: none; */
+    text-decoration-thickness: 2px;
+    text-decoration-color: #9a9a9b;
 }
