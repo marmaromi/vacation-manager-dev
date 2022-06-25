@@ -3,7 +3,8 @@ class Config {
     public registerUrl = "";
     public loginUrl = "";
     public vacationsUrl = "";
-    public vacationImagesUrl ="";
+    public vacationImagesUrl = "";
+    public followedVacations = "";
     public socketIo = "";
 }
 
@@ -14,8 +15,10 @@ class DevelopmentConfig extends Config {
     public registerUrl = "http://localhost:3002/api/users/register/";
     public loginUrl = "http://localhost:3002/api/users/login/";
     public vacationsUrl = "http://localhost:3002/api/vacations/";
-    public vacationImagesUrl ="http://localhost:3002/api/vacations/images/";
+    public vacationImagesUrl = "http://localhost:3002/api/vacations/images/";
+    public followedVacations = "http://localhost:3002/api/users/following/";
     public socketIo = "http://localhost:3002/";
+
 
 }
 
@@ -25,8 +28,10 @@ class TestConfig extends Config {
     public registerUrl = "http://localhost:3002/api/users/register/";
     public loginUrl = "http://localhost:3002/api/users/login/";
     public vacationsUrl = "http://localhost:3002/api/vacations/";
-    public vacationImagesUrl ="http://localhost:3002/api/vacations/images/";
+    public vacationImagesUrl = "http://localhost:3002/api/vacations/images/";
+    public followedVacations = "http://localhost:3002/api/users/following/";
     public socketIo = "http://localhost:3002/";
+
 
 }
 
@@ -37,9 +42,10 @@ class ProductionConfig extends Config {
     public loginUrl = "https://vacation-manager-ido.herokuapp.com/api/users/login/";
     public vacationsUrl = "https://vacation-manager-ido.herokuapp.com/api/vacations/";
     public productImagesUrl = "https://vacation-manager-ido.herokuapp.com/api/vacations/images/";
-    public vacationImagesUrl ="https://vacation-manager-ido.herokuapp.com/vacations/images/";
-
+    public vacationImagesUrl = "https://vacation-manager-ido.herokuapp.com/vacations/images/";
+    public followedVacations = "https://vacation-manager-ido.herokuapp.com/api/users/following/";
     public socketIo = "https://vacation-manager-ido.herokuapp.com/";
+
 
 }
 

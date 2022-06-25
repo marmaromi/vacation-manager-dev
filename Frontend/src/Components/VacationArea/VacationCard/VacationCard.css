@@ -21,7 +21,9 @@
     position: absolute;
     top: 235px;
     left: 16px;
-    font-size: x-large
+    font-size: x-large;
+    overflow: auto;
+    height: 80px;
 }
 
 .VacationCard .topLeftImage {
@@ -31,18 +33,24 @@
     font-size: xx-large
 }
 
-.VacationCard .bottomRight {
+.VacationCard .bottomRightAdmin {
     position: absolute;
     bottom: 10px;
     right: 15px;
 }
 
-.VacationCard button {
+.VacationCard .bottomRightAdmin button {
     padding: 0;
     margin: 0;
     text-decoration: none;
     border: none;
     background-color: transparent;
+}
+
+.VacationCard .bottomRightAdmin img {
+    padding-bottom: 3px;
+    width: 25px;
+    height: auto;
 }
 
 .VacationCard .dateAndPrice {
@@ -52,8 +60,10 @@
     text-shadow: none;
 }
 
-.VacationCard .bottomRight img {
-    padding-bottom: 3px;
-    width: 25px;
-    height: auto;
+.VacationCard .bottomRightUser {
+    position: absolute;
+    bottom: 20px;
+    right: 15px;
+    padding: 5px;
+    border: none;
 }

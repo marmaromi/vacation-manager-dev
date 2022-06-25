@@ -49,7 +49,7 @@ class VacationsService {
     }
 
     public async editVacation(vacation: VacationModel): Promise<VacationModel> {
-        
+
         const response = await axios.put<VacationModel>(config.vacationsUrl + vacation.id, vacation);
         const editedVacation = response.data;
         store.dispatch(editVacationAction(editedVacation));
@@ -69,6 +69,25 @@ class VacationsService {
 
         return image;
     }
+
+    public async vacationsUserFollows(userId: number): Promise<number[]> {
+
+        const response = await axios.get<number[]>(config.followedVacations + userId);
+        const followedVacations = response.data;
+        return followedVacations;
+    }
+
+    public async followVacation(userId: number, vacationId: number): Promise<number[]> {
+
+        const response = await axios.post<number[]>(config.followedVacations + userId + '/' + vacationId);
+        const followedVacations = response.data;
+        return followedVacations;
+    }
+
+    public async unFollowVacation(userId: number, vacationId: number): Promise<void> {
+        await axios.delete<void>(config.followedVacations + userId + '/' + vacationId);
+    }
+
 }
 
 const vacationsService = new VacationsService();

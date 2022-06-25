@@ -26,6 +26,7 @@ const register = async (user: UserModel): Promise<string> => {
     const result: OkPacket = await dal.execute(sql, values);
     user.id = result.insertId;
 
+    user.followedVacations = await vacationsUserFollows(user.id);
 
     const token = cyberToken.getNewToken(user);
 
@@ -37,16 +38,19 @@ const login = async (credentials: CredentialsModel): Promise<string> => {
     credentials.username = credentials.username.toLocaleLowerCase();
     credentials.password = hash(credentials.password);
 
-    const sql = `SELECT username, privileges, password, firstName, lastName FROM users WHERE username = '${credentials.username}' AND password = '${credentials.password}'`
-    const user = await dal.execute(sql);
+    const sql = `SELECT userId as id, username, privileges, password, firstName, lastName FROM users WHERE username = '${credentials.username}' AND password = '${credentials.password}'`
+    const users = await dal.execute(sql);
+    const user: UserModel = users[0];
 
-    if (!user[0]) {
+    if (!user) {
         throw new ValidationError(`Incorrect username or password`);
     }
 
-    delete user[0].password;
+    user.followedVacations = await vacationsUserFollows(user.id);
+    delete user.password;
+    delete user.id;
 
-    const token = cyberToken.getNewToken(user[0]);
+    const token = cyberToken.getNewToken(user);
 
     return token;
 }
@@ -58,10 +62,46 @@ const usernameExists = async (username: string): Promise<boolean> => {
     return exists;
 }
 
+const vacationsUserFollows = async (userId: number): Promise<number[]> => {
+    // UPDATE vacations SET followers = (SELECT COUNT(vacationId) as followers FROM user_tagged_vacations WHERE vacations.vacationId = user_tagged_vacations.vacationId);
+
+    const sql = `SELECT vacationId FROM user_tagged_vacations WHERE userId = ${userId}`;
+
+    const result = await dal.execute(sql);
+
+    const vacationsUserFollows = result.map((r: any) => r.vacationId);
+    return vacationsUserFollows;
+}
+
+const userFollowsVacation = async (userId: number, vacationId: number): Promise<void> => {
+
+    const followedVacations = await vacationsUserFollows(userId);
+
+    if (followedVacations.includes(vacationId)) {
+        throw new ResourceNotFoundError(userId);
+    }
+
+    const sql = `INSERT INTO user_tagged_vacations VALUES(?, ?)`;
+    const values = [userId, vacationId]
+
+    await dal.execute(sql, values);
+}
+
+const userUnFollowsVacation = async (userId: number, vacationId: number): Promise<void> => {
+    const sql = `DELETE FROM user_tagged_vacations WHERE userId = ${userId} AND vacationId = ${vacationId}`
+    const result: OkPacket = await dal.execute(sql);
+    if (result.affectedRows === 0) {
+        throw new ResourceNotFoundError(userId);
+    }
+}
+
 
 export default {
     register,
-    login
+    login,
+    vacationsUserFollows,
+    userFollowsVacation,
+    userUnFollowsVacation,
 }
 
 // const getAllUsers = async (): Promise<UserModel[]> => {

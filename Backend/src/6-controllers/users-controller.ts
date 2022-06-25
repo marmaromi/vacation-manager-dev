@@ -29,5 +29,43 @@ router.post("/users/login", async (req: Request, res: Response, next: NextFuncti
     }
 });
 
+router.get("/users/following/:userId([0-9]+)", async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const userId = +req.params.userId;
+
+        const followedVacations = await usersLogic.vacationsUserFollows(userId);
+        res.json(followedVacations);
+
+    } catch (error) {
+        next(error);
+    }
+});
+
+router.post("/users/following/:userId([0-9]+)/:vacationId([0-9]+)", async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const userId = +req.params.userId;
+        const vacationId = +req.params.vacationId;
+
+        await usersLogic.userFollowsVacation(userId, vacationId);
+        const followedVacations = await usersLogic.vacationsUserFollows(userId);
+        res.json(followedVacations);
+
+    } catch (error) {
+        next(error);
+    }
+});
+
+router.delete("/users/following/:userId([0-9]+)/:vacationId([0-9]+)", async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const userId = +req.params.userId;
+        const vacationId = +req.params.vacationId;
+        await usersLogic.userUnFollowsVacation(userId, vacationId);
+        res.sendStatus(204);
+
+    } catch (error) {
+        next(error);
+    }
+});
+
 
 export default router;
