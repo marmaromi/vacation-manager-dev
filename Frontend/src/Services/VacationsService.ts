@@ -12,9 +12,14 @@ class VacationsService {
         if (vacations.length === 0) {
             const response = await axios.get<VacationModel[]>(config.vacationsUrl);
             vacations = response.data;
+
+            const user = store.getState().authStore.user;
+            const sortedVacations = await this.sortVacations(user.id, vacations);
+            
+            vacations.splice(0, sortedVacations.length, ...sortedVacations);
+
             store.dispatch(getAllVacationsAction(vacations));
         }
-
         return vacations;
     }
 
@@ -27,12 +32,10 @@ class VacationsService {
             vacation = response.data;
             store.dispatch(getAllVacationsAction(vacations));
         }
-
         return vacation;
     }
 
     public async addVacation(vacation: VacationModel): Promise<VacationModel> {
-
         const formData = new FormData();
         formData.append("destination", vacation.destination);
         formData.append("description", vacation.description);
@@ -49,7 +52,6 @@ class VacationsService {
     }
 
     public async editVacation(vacation: VacationModel): Promise<VacationModel> {
-
         const response = await axios.put<VacationModel>(config.vacationsUrl + vacation.id, vacation);
         const editedVacation = response.data;
         store.dispatch(editVacationAction(editedVacation));
@@ -62,11 +64,8 @@ class VacationsService {
     }
 
     public async getVacationImage(imageName: string): Promise<FileList> {
-
         const response = await axios.get<FileList>(config.vacationImagesUrl + imageName);
         const image = response.data;
-        // console.log(image);
-
         return image;
     }
 
@@ -89,8 +88,33 @@ class VacationsService {
     public async updateVacationFollowers(vacation: VacationModel): Promise<VacationModel> {
         const response = await axios.put<VacationModel>(config.followerCountUrl + vacation.id, vacation);
         const updatedVacation = response.data;
+        updatedVacation.isFollowing = vacation.isFollowing;
+        // console.log(updatedVacation);
+
         store.dispatch(editVacationAction(updatedVacation));
         return updatedVacation;
+    }
+
+    public async sortVacations(userId: number, vacations: VacationModel[]): Promise<VacationModel[]> {
+        // console.log(vacations);
+
+        const followedVacations = await this.vacationsUserFollows(userId);
+        // console.log(vacations);
+        // vacations.map(v => { followedVacations.includes(v.id) ? v.isFollowing = true : v.isFollowing = false; return v; });
+        vacations.forEach(v => {
+            if (followedVacations.includes(v.id)) {
+                v.isFollowing = true;
+            }
+            else {
+                v.isFollowing = false;
+            }
+            // console.log(v.isFollowing);
+
+            return v;
+        });
+        vacations.sort((x, y) => x.isFollowing === y.isFollowing ? 0 : x.isFollowing ? -1 : 1);
+
+        return vacations;
     }
 
 }

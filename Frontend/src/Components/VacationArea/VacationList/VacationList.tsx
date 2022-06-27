@@ -12,25 +12,29 @@ import notifyService from "../../../Services/NotifyService";
 
 function VacationList(): JSX.Element {
     const navigate = useNavigate();
-    const [vacations, setVacation] = useState<VacationModel[]>([]);
+    const [vacations, setVacations] = useState<VacationModel[]>([]);
 
     useEffect(() => {
 
         socketService.connect();
-
 
         if (!authService.isLoggedIn()) {
             navigate("/login");
         }
         else {
             vacationsService.getAllVacations()
-                .then(vacations => setVacation(vacations))
+                .then(vacations => setVacations(vacations))
                 .catch(err => notifyService.error(err.message));
         }
 
         const unsubscribe = store.subscribe(() => {
             const dup = [...store.getState().vacationsStore.vacations];
-            setVacation(dup);
+            // console.log(dup);
+
+            // const user = store.getState().authStore.user;
+            // vacationsService.sortVacations(user.id, dup)
+            //     .then(sortedVacations => setVacations(sortedVacations))
+            //     .catch(err => console.log(err));
         });
 
         return () => {

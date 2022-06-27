@@ -12,6 +12,8 @@ class VacationModel {
     public imageName: string;
     public image: UploadedFile;
     public followers: number;
+    public isFollowing: boolean;
+
 
 
     public constructor(vacation: VacationModel) {
@@ -24,6 +26,7 @@ class VacationModel {
         this.imageName = vacation.imageName;
         this.image = vacation.image;
         this.followers = vacation.followers;
+        this.isFollowing = vacation.isFollowing;
 
     }
 

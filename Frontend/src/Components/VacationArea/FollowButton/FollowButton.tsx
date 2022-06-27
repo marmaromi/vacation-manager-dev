@@ -4,7 +4,6 @@ import VacationModel from "../../../Models/Vacation Model";
 import { store } from "../../../Redux/Store";
 import { editVacationAction } from "../../../Redux/VacationSlice";
 import notifyService from "../../../Services/NotifyService";
-import socketService from "../../../Services/SocketService";
 import vacationsService from "../../../Services/VacationsService";
 import "./FollowButton.css";
 
@@ -14,7 +13,6 @@ interface FollowButtonProps {
 }
 
 function FollowButton(props: FollowButtonProps): JSX.Element {
-
     const [following, setFollowing] = useState<boolean>();
     const [totalFollowers, setTotalFollowers] = useState<number>(props.vacation.followers);
     const [followedVacations, setFollowedVacations] = useState<number[]>([]);
@@ -33,8 +31,11 @@ function FollowButton(props: FollowButtonProps): JSX.Element {
 
         const unsubscribe = store.subscribe(() => {
             const dup = [...store.getState().vacationsStore.vacations];
+            // console.log(store.getState().vacationsStore.vacations);
+
             const vacation = dup.find(v => v.id === props.vacation.id);
             setTotalFollowers(vacation.followers);
+
         });
 
         return () => unsubscribe();
@@ -49,10 +50,10 @@ function FollowButton(props: FollowButtonProps): JSX.Element {
                 setTotalFollowers(totalFollowers + 1);
                 const newVac = { ...props.vacation };
                 newVac.followers = totalFollowers + 1;
+                newVac.isFollowing = true;
                 vacationsService.updateVacationFollowers(newVac)
                     .then(v => store.dispatch(editVacationAction(v)))
                     .catch(err => notifyService.error(err.message));
-
             })
             .catch(err => {
                 notifyService.error(err);
@@ -69,6 +70,7 @@ function FollowButton(props: FollowButtonProps): JSX.Element {
                 setTotalFollowers(totalFollowers - 1);
                 const newVac = { ...props.vacation };
                 newVac.followers = totalFollowers - 1;
+                newVac.isFollowing = false;
                 vacationsService.updateVacationFollowers(newVac)
                     .then(v => store.dispatch(editVacationAction(v)))
                     .catch(err => notifyService.error(err.message));
