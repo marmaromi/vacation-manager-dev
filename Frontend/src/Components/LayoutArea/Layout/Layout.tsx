@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { store } from "../../../Redux/Store";
+import Logout from "../../AuthArea/logout/logout";
 import AdminArea from "../AdminArea/AdminArea";
 import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
@@ -27,7 +28,7 @@ function Layout(): JSX.Element {
     return (
         <div className="Layout">
             <div className="content-wrap">
-                {role === 'admin' && <aside> <AdminArea /> </aside>}
+                {role === 'admin' && <aside className="adminLayout"> <AdminArea /> </aside> || <aside> <Logout /> </aside>}
                 <header> <Header /> </header>
                 <main> <Routing /> </main>
             </div>

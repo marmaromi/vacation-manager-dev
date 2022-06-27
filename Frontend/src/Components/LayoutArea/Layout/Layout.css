@@ -8,7 +8,7 @@
     margin-top: 10px;
 }
 
-.Layout aside {
+.Layout .adminLayout {
     /* border: 1px solid black; */
     padding: 8px;
     background-color: rgba(0, 0, 0, 0.8);

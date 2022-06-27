@@ -6,9 +6,9 @@ function Header(): JSX.Element {
     return (
         <div className="Header">
 
-            <Logout />
-        <NavLink to={"/vacations"}><h1>Vacation Manager</h1></NavLink>
-            
+            {/* <Logout /> */}
+            <NavLink to={"/vacations"}><h1>Vacation Manager</h1></NavLink>
+
 
         </div>
     );
