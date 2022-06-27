@@ -4,6 +4,7 @@ import { ResourceNotFoundError, ValidationError } from "../4-models/errors-model
 import VacationModel from "../4-models/vacation-model";
 import { v4 as uuid } from "uuid";
 import fs from "fs";
+import socketLogic from "./socket-logic";
 
 const getAllVacations = async (): Promise<VacationModel[]> => {
     const sql = `SELECT vacationId as id, 
@@ -67,10 +68,13 @@ const addVacation = async (vacation: VacationModel): Promise<VacationModel> => {
 
     const result: OkPacket = await dal.execute(sql, values);
     vacation.id = result.insertId;
+
+    socketLogic.reportAddVacation(vacation);
     return vacation;
 }
 
 async function updateVacation(vacation: VacationModel): Promise<VacationModel> {
+    
     const errors = vacation.validatePut();
     if (errors) {
         throw new ValidationError(errors);
@@ -121,6 +125,8 @@ async function updateVacation(vacation: VacationModel): Promise<VacationModel> {
     if (result.affectedRows === 0) {
         throw new ResourceNotFoundError(vacation.id);
     }
+    
+    socketLogic.reportUpdateVacation(vacation);
     return vacation;
 }
 
@@ -140,6 +146,8 @@ const deleteVacation = async (id: number): Promise<void> => {
         }
         else console.log(`File was deleted in path: "${imageToDelete}"`);
     });
+
+    socketLogic.reportDeleteVacation(id);
 }
 
 const UpdateFollowerCount = async (id: number): Promise<void> => {

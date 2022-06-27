@@ -1,4 +1,5 @@
 import { io, Socket } from "socket.io-client";
+import FollowButton from "../Components/VacationArea/FollowButton/FollowButton";
 import VacationModel from "../Models/Vacation Model";
 import { store } from "../Redux/Store";
 import { addVacationsAction, deleteVacationAction, editVacationAction } from "../Redux/VacationSlice";
@@ -19,7 +20,7 @@ class SocketService {
         });
 
         // Listen to updating by admin: 
-        this.socket.on("admin-edited-vacation", (vacation: VacationModel) => {
+        this.socket.on("admin-updated-vacation", (vacation: VacationModel) => {
             store.dispatch(editVacationAction(vacation));
         });
 
@@ -27,6 +28,12 @@ class SocketService {
         this.socket.on("admin-deleted-vacation", (id: number) => {
             store.dispatch(deleteVacationAction(id));
         });
+
+        this.socket.on("user-followed-vacation", (userId: number, vacationId: number) => {
+            
+        });
+
+
     }
 
     public disconnect(): void {

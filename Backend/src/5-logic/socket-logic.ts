@@ -26,12 +26,25 @@ function reportUpdateVacation(vacation: VacationModel): void {
 
 // Reporting a vacation deleted by the admin:
 function reportDeleteVacation(id: number): void {
-    socketServer.sockets.emit("admin-deleted-vacation", id);
+    socketServer.sockets.emit("admin-deleted-vacation", id);    
 }
+
+
+function reportFollowVacation(userId: number, vacationId: number): void {
+    socketServer.sockets.emit("user-followed-vacation", userId, vacationId);    
+}
+
+function reportUnFollowVacation(userId: number, vacationId: number): void {
+    socketServer.sockets.emit("user-unfollowed-vacation", userId, vacationId);    
+}
+
+
 
 export default {
     init,
     reportAddVacation,
     reportUpdateVacation,
-    reportDeleteVacation
+    reportDeleteVacation,
+    reportFollowVacation,
+    reportUnFollowVacation
 }
