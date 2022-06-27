@@ -16,7 +16,8 @@ const getAllVacations = async (): Promise<VacationModel[]> => {
                         imageName
                  FROM vacations`;
 
-    const vacations = await dal.execute(sql);
+    const vacations: VacationModel[] = await dal.execute(sql);
+    vacations.forEach(async vacation => await UpdateFollowerCount(vacation.id));
     return vacations;
 }
 
@@ -142,10 +143,8 @@ const deleteVacation = async (id: number): Promise<void> => {
 }
 
 const UpdateFollowerCount = async (id: number): Promise<void> => {
-
     const sql = `UPDATE vacations SET followers = (SELECT COUNT(vacationId) as followers FROM user_tagged_vacations WHERE vacations.vacationId = user_tagged_vacations.vacationId)`;
-    const result = await dal.execute(sql);
-
+    await dal.execute(sql);
 }
 
 const followerCount = async (id: number): Promise<number> => {

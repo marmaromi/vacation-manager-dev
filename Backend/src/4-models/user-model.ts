@@ -8,7 +8,7 @@ class UserModel {
     public lastName: string;
     public username: string;
     public password: string;
-    public followedVacations: number[];
+    // public followedVacations: number[];
 
     public constructor(user: UserModel) {
         this.id = user.id;
@@ -16,7 +16,7 @@ class UserModel {
         this.lastName = user.lastName;
         this.username = user.username;
         this.password = user.password;
-        this.followedVacations = user.followedVacations;
+        // this.followedVacations = user.followedVacations;
     }
 
     private static postValidationSchema = Joi.object({

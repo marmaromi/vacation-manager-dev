@@ -71,14 +71,12 @@ class VacationsService {
     }
 
     public async vacationsUserFollows(userId: number): Promise<number[]> {
-
-        const response = await axios.get<number[]>(config.followedVacations + userId);
-        const followedVacations = response.data;
+        const response = await axios.get<number[]>(config.followedVacations + userId);        
+        const followedVacations = response.data;        
         return followedVacations;
     }
 
     public async followVacation(userId: number, vacationId: number): Promise<number[]> {
-
         const response = await axios.post<number[]>(config.followedVacations + userId + '/' + vacationId);
         const followedVacations = response.data;
         return followedVacations;

@@ -23,7 +23,6 @@ const ifTokenAvailableReturnToken = (): string => {
 const ifTokenAvailableReturnUser = (): UserModel => {
     const token = localStorage.getItem('token');
     if (token) {        
-        // console.log(token);
         return (jwtDecode(token) as any).user;
     }
     return null;

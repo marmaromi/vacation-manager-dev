@@ -8,6 +8,7 @@ import vacationsService from "../../../Services/VacationsService";
 import config from "../../../Utils/config";
 import editIcon from "../../../assets/images/edit-icon.png";
 import "./VacationCard.css";
+import FollowButton from "../FollowButton/FollowButton";
 
 interface VacationCardProps {
     vacation: VacationModel;
@@ -17,9 +18,6 @@ function VacationCard(props: VacationCardProps): JSX.Element {
 
     const [role, setRole] = useState<string>('');
     const [userId, setUserId] = useState<number>();
-    const [followers, setFollowers] = useState<number>();
-    const [following, setFollowing] = useState<number>();
-
 
     useEffect(() => {
         const user = store.getState().authStore.user;
@@ -27,6 +25,7 @@ function VacationCard(props: VacationCardProps): JSX.Element {
 
         if (user?.privileges === 'admin') setRole(user.privileges);
         else setRole('')
+        
     }, []);
 
     // const [imgSrc, setImgSrc] = useState<FileList>();
@@ -40,18 +39,9 @@ function VacationCard(props: VacationCardProps): JSX.Element {
     //         .catch(err => notifyService.error(err.message));
     // }, [])
 
-
-    function followVacation(vacationId: number): void {
-        console.log(userId);
-        
-        
-
-
-    }
-
-
     const startDate = new Date(props.vacation.startDate).toLocaleDateString("he-il");
     const endDate = new Date(props.vacation.endDate).toLocaleDateString("he-il");
+    console.log();
 
     return (
         <div className="VacationCard Box" >
@@ -82,9 +72,10 @@ function VacationCard(props: VacationCardProps): JSX.Element {
 
                 ||
 
-                <button type="button" className="bottomRightUser btn btn-primary" onClick={() => followVacation(props.vacation.id)}>
-                    Follow <span className="badge bg-secondary">{followers}</span>
-                </button>
+                <FollowButton vacation={props.vacation} user={store.getState().authStore.user} />
+                // <button type="button" className="bottomRightUser btn btn-primary" onClick={() => followVacation(props.vacation.id)}>
+                //     Follow <span className="badge bg-secondary">{followers}</span>
+                // </button>
             }
 
 

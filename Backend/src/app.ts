@@ -19,7 +19,7 @@ expressServer.use(cors({ origin: "*" }));
 
 expressServer.use("/api/", expressRateLimit({
     windowMs: 100, // millisecond window time
-    max: 10, // Maximum requests per window time
+    max: 100, // Maximum requests per window time
     message: "User exceeded maximum request limit" // Message to return on rate limit
 }));
 

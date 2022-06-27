@@ -31,6 +31,7 @@ class AuthService {
     public isLoggedIn(): boolean {
         return store.getState().authStore.user !== null;
     }
+
 }
 
 const authService = new AuthService();

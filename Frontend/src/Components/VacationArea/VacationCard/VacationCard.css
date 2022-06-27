@@ -11,7 +11,7 @@
 }
 
 .VacationCard img {
-    max-width: 400px;
+    width: 400px;
     height: 300px;
     object-fit: cover;
     border-radius: 10px;
@@ -60,10 +60,3 @@
     text-shadow: none;
 }
 
-.VacationCard .bottomRightUser {
-    position: absolute;
-    bottom: 20px;
-    right: 15px;
-    padding: 5px;
-    border: none;
-}

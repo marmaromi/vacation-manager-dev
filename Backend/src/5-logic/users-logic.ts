@@ -26,7 +26,7 @@ const register = async (user: UserModel): Promise<string> => {
     const result: OkPacket = await dal.execute(sql, values);
     user.id = result.insertId;
 
-    user.followedVacations = await vacationsUserFollows(user.id);
+    // user.followedVacations = await vacationsUserFollows(user.id);
 
     const token = cyberToken.getNewToken(user);
 
@@ -46,9 +46,9 @@ const login = async (credentials: CredentialsModel): Promise<string> => {
         throw new ValidationError(`Incorrect username or password`);
     }
 
-    user.followedVacations = await vacationsUserFollows(user.id);
+    // user.followedVacations = await vacationsUserFollows(user.id);
     delete user.password;
-    delete user.id;
+    // delete user.id;
 
     const token = cyberToken.getNewToken(user);
 
