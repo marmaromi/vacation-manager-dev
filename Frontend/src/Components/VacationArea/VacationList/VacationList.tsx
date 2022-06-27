@@ -13,7 +13,6 @@ import notifyService from "../../../Services/NotifyService";
 function VacationList(): JSX.Element {
     const navigate = useNavigate();
     const [vacations, setVacation] = useState<VacationModel[]>([]);
-    // const [user, setUser] = useState<UserModel>();
 
     useEffect(() => {
 
@@ -24,8 +23,6 @@ function VacationList(): JSX.Element {
             navigate("/login");
         }
         else {
-            // setUser(store.getState().authStore.user)
-
             vacationsService.getAllVacations()
                 .then(vacations => setVacation(vacations))
                 .catch(err => notifyService.error(err.message));

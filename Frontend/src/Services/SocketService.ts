@@ -1,5 +1,4 @@
 import { io, Socket } from "socket.io-client";
-import FollowButton from "../Components/VacationArea/FollowButton/FollowButton";
 import VacationModel from "../Models/Vacation Model";
 import { store } from "../Redux/Store";
 import { addVacationsAction, deleteVacationAction, editVacationAction } from "../Redux/VacationSlice";
@@ -29,10 +28,9 @@ class SocketService {
             store.dispatch(deleteVacationAction(id));
         });
 
-        this.socket.on("user-followed-vacation", (userId: number, vacationId: number) => {
-            
+        this.socket.on("user-followed-vacation", (vacation: VacationModel) => {
+            store.dispatch(editVacationAction(vacation));            
         });
-
 
     }
 

@@ -7,6 +7,8 @@ import fs from "fs";
 import socketLogic from "./socket-logic";
 
 const getAllVacations = async (): Promise<VacationModel[]> => {
+    await UpdateFollowerCount();
+
     const sql = `SELECT vacationId as id, 
                         description, 
                         destination, 
@@ -18,12 +20,11 @@ const getAllVacations = async (): Promise<VacationModel[]> => {
                  FROM vacations`;
 
     const vacations: VacationModel[] = await dal.execute(sql);
-    vacations.forEach(async vacation => await UpdateFollowerCount(vacation.id));
+    vacations.forEach(async vacation => await UpdateFollowerCount());
     return vacations;
 }
 
 const getOneVacation = async (id: number): Promise<VacationModel> => {
-    await UpdateFollowerCount(id);
     const sql = `SELECT vacationId as id, 
                         description, 
                         destination, 
@@ -35,11 +36,15 @@ const getOneVacation = async (id: number): Promise<VacationModel> => {
                  FROM vacations
                  WHERE vacationId = ${id}`;
 
-    const vacations = await dal.execute(sql);
+    const vacations: VacationModel[] = await dal.execute(sql);
     const vacation = vacations[0];
     if (!vacation) {
         throw new ResourceNotFoundError(id);
     }
+
+    vacation.startDate = new Date(vacation.startDate).toISOString().slice(0, -14);
+    vacation.endDate = new Date(vacation.endDate).toISOString().slice(0, -14);    
+
     return vacation;
 }
 
@@ -74,7 +79,7 @@ const addVacation = async (vacation: VacationModel): Promise<VacationModel> => {
 }
 
 async function updateVacation(vacation: VacationModel): Promise<VacationModel> {
-    
+
     const errors = vacation.validatePut();
     if (errors) {
         throw new ValidationError(errors);
@@ -125,7 +130,7 @@ async function updateVacation(vacation: VacationModel): Promise<VacationModel> {
     if (result.affectedRows === 0) {
         throw new ResourceNotFoundError(vacation.id);
     }
-    
+
     socketLogic.reportUpdateVacation(vacation);
     return vacation;
 }
@@ -150,9 +155,10 @@ const deleteVacation = async (id: number): Promise<void> => {
     socketLogic.reportDeleteVacation(id);
 }
 
-const UpdateFollowerCount = async (id: number): Promise<void> => {
+const UpdateFollowerCount = async (): Promise<void> => {
     const sql = `UPDATE vacations SET followers = (SELECT COUNT(vacationId) as followers FROM user_tagged_vacations WHERE vacations.vacationId = user_tagged_vacations.vacationId)`;
     await dal.execute(sql);
+
 }
 
 const followerCount = async (id: number): Promise<number> => {
@@ -165,10 +171,35 @@ const followerCount = async (id: number): Promise<number> => {
     return followerCount;
 }
 
+const userFollowChange = async (vacationId: number): Promise<VacationModel> => {
+    const vacationToUpdate = await getOneVacation(vacationId);
+    vacationToUpdate.followers = await followerCount(vacationId);
+
+    const sql = `UPDATE vacations 
+                 SET description = '${vacationToUpdate.description}',
+                     destination = '${vacationToUpdate.destination}',
+                     startDate = '${vacationToUpdate.startDate}',
+                     endDate = '${vacationToUpdate.endDate}',
+                     price = ${vacationToUpdate.price},
+                     imageName = '${vacationToUpdate.imageName}',
+                     followers = ${vacationToUpdate.followers}
+                 WHERE vacationId = ${vacationId}`;
+
+    const result: OkPacket = await dal.execute(sql);
+    if (result.affectedRows === 0) {
+        throw new ResourceNotFoundError(vacationId);
+    }
+
+    socketLogic.reportFollowVacation(vacationToUpdate);
+    return vacationToUpdate;
+}
+
+
 export default {
     getAllVacations,
     getOneVacation,
     addVacation,
     updateVacation,
-    deleteVacation
+    deleteVacation,
+    userFollowChange
 }

@@ -60,6 +60,20 @@ router.put("/vacations/:id([0-9]+)", verifyAdmin, async (req: Request, res: Resp
     }
 });
 
+router.put("/vacations/followers/:id([0-9]+)", async (req: Request, res: Response, next: NextFunction) => {
+    try {        
+        req.body.id = +req.params.id;
+        req.body.image = req.files?.image;
+        const vacation = new VacationModel(req.body);
+
+        const updatedVacation = await vacationLogic.userFollowChange(vacation.id);
+        res.json(updatedVacation);
+    }
+    catch (error) {
+        next(error);
+    }
+});
+
 router.delete("/vacations/:id([0-9]+)", verifyAdmin, async (req: Request, res: Response, next: NextFunction) => {
     try {
         const id = +req.params.id;

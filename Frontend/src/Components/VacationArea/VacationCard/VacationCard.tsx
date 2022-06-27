@@ -18,6 +18,8 @@ function VacationCard(props: VacationCardProps): JSX.Element {
 
     const [role, setRole] = useState<string>('');
     const [userId, setUserId] = useState<number>();
+    const [startDate, setStartDate] = useState<string>("");
+    const [endDate, setEndDate] = useState<string>("");
 
     useEffect(() => {
         const user = store.getState().authStore.user;
@@ -25,6 +27,9 @@ function VacationCard(props: VacationCardProps): JSX.Element {
 
         if (user?.privileges === 'admin') setRole(user.privileges);
         else setRole('')
+
+        setStartDate(new Date(props.vacation.startDate).toLocaleDateString("he-il"));
+        setEndDate(new Date(props.vacation.endDate).toLocaleDateString("he-il"));
         
     }, []);
 
@@ -38,10 +43,6 @@ function VacationCard(props: VacationCardProps): JSX.Element {
     //         })
     //         .catch(err => notifyService.error(err.message));
     // }, [])
-
-    const startDate = new Date(props.vacation.startDate).toLocaleDateString("he-il");
-    const endDate = new Date(props.vacation.endDate).toLocaleDateString("he-il");
-    console.log();
 
     return (
         <div className="VacationCard Box" >

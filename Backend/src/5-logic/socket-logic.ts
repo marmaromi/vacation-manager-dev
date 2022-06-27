@@ -30,15 +30,9 @@ function reportDeleteVacation(id: number): void {
 }
 
 
-function reportFollowVacation(userId: number, vacationId: number): void {
-    socketServer.sockets.emit("user-followed-vacation", userId, vacationId);    
+function reportFollowVacation(vacation: VacationModel): void {
+    socketServer.sockets.emit("user-followed-vacation",vacation);        
 }
-
-function reportUnFollowVacation(userId: number, vacationId: number): void {
-    socketServer.sockets.emit("user-unfollowed-vacation", userId, vacationId);    
-}
-
-
 
 export default {
     init,
@@ -46,5 +40,4 @@ export default {
     reportUpdateVacation,
     reportDeleteVacation,
     reportFollowVacation,
-    reportUnFollowVacation
 }

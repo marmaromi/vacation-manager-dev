@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
 import UserModel from "../../../Models/UserModel";
 import VacationModel from "../../../Models/Vacation Model";
+import { store } from "../../../Redux/Store";
+import { editVacationAction } from "../../../Redux/VacationSlice";
 import notifyService from "../../../Services/NotifyService";
+import socketService from "../../../Services/SocketService";
 import vacationsService from "../../../Services/VacationsService";
 import "./FollowButton.css";
 
@@ -16,7 +19,8 @@ function FollowButton(props: FollowButtonProps): JSX.Element {
     const [totalFollowers, setTotalFollowers] = useState<number>(props.vacation.followers);
     const [followedVacations, setFollowedVacations] = useState<number[]>([]);
 
-    useEffect(() => { // check if the user is following the vacation        
+    useEffect(() => { // check if the user is following the vacation      
+
         vacationsService.vacationsUserFollows(props.user.id)
             .then(followedVacations => {
                 setFollowedVacations(followedVacations);
@@ -27,6 +31,14 @@ function FollowButton(props: FollowButtonProps): JSX.Element {
             })
             .catch(err => notifyService.error(err.message));
 
+        const unsubscribe = store.subscribe(() => {
+            const dup = [...store.getState().vacationsStore.vacations];
+            const vacation = dup.find(v => v.id === props.vacation.id);
+            setTotalFollowers(vacation.followers);
+        });
+
+        return () => unsubscribe();
+
 
     }, []);
 
@@ -35,6 +47,12 @@ function FollowButton(props: FollowButtonProps): JSX.Element {
             .then(followedVacations => {
                 setFollowedVacations(followedVacations);
                 setTotalFollowers(totalFollowers + 1);
+                const newVac = { ...props.vacation };
+                newVac.followers = totalFollowers + 1;
+                vacationsService.updateVacationFollowers(newVac)
+                    .then(v => store.dispatch(editVacationAction(v)))
+                    .catch(err => notifyService.error(err.message));
+
             })
             .catch(err => {
                 notifyService.error(err);
@@ -49,6 +67,11 @@ function FollowButton(props: FollowButtonProps): JSX.Element {
             .then(() => {
                 setFollowedVacations(followedVacations.splice(followedVacations.indexOf(props.vacation.id), 1))
                 setTotalFollowers(totalFollowers - 1);
+                const newVac = { ...props.vacation };
+                newVac.followers = totalFollowers - 1;
+                vacationsService.updateVacationFollowers(newVac)
+                    .then(v => store.dispatch(editVacationAction(v)))
+                    .catch(err => notifyService.error(err.message));
             })
             .catch(err => {
                 notifyService.error(err);
