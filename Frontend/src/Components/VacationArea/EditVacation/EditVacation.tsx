@@ -12,9 +12,11 @@ function EditVacation(): JSX.Element {
 
     const params = useParams();
     const navigate = useNavigate();
-    const { register, handleSubmit, formState: { errors }, getValues, setValue } = useForm<VacationModel>();
+    const { register, handleSubmit, formState: { errors }, getValues, setValue, watch } = useForm<VacationModel>();
     const [vacation, setVacation] = useState<VacationModel>();
     const [vacationId, setVacationId] = useState<number>();
+    const [today, setToday] = useState<string>("");
+
 
     useEffect(() => {
         if (!store.getState().authStore?.token) {
@@ -24,8 +26,6 @@ function EditVacation(): JSX.Element {
         if (store.getState().authStore?.user?.privileges !== "admin") {
             navigate("/vacations");
         }
-
-
 
         const vacationId: number = +params.vacationId;
         setVacationId(vacationId);
@@ -41,6 +41,8 @@ function EditVacation(): JSX.Element {
             })
             .catch(err => alert(err.message));
 
+        setToday(new Date().toISOString().slice(0, -14));
+
     }, [])
 
     async function send(vacation: VacationModel) {
@@ -54,6 +56,8 @@ function EditVacation(): JSX.Element {
             notifyService.error(err.message);
         }
     }
+
+    watch(["startDate", "endDate"]);
 
     return (
         <div className="EditVacation Box">
@@ -81,18 +85,18 @@ function EditVacation(): JSX.Element {
                 <br />
 
                 <label>Start Date: </label>
-                <input type="date" min={new Date().toISOString().slice(0, -14)} max={getValues("endDate")} {...register("startDate", {
+                <input type="date" min={getValues("endDate") && today || today} max={getValues("endDate")} {...register("startDate", {
                     required: { value: true, message: "Missing start date" },
-                    min: { value: new Date().toISOString().slice(0, -14), message: "Start date must be today or later" },
-                    max: { value: getValues("endDate"), message: "Start date must be today or later" }
+                    min: { value: getValues("endDate") && today || today, message: "Start date must be today or later" },
+                    max: { value: getValues("endDate"), message: "Start date must be before end date" }
                 })} />
                 <span className="error">{errors.startDate?.message}</span>
                 <br />
 
                 <label>End Date: </label>
-                <input type="date" min={getValues("startDate") || new Date().toISOString().slice(0, -14)} {...register("endDate", {
+                <input type="date" min={today && getValues("startDate") || today} {...register("endDate", {
                     required: { value: true, message: "Missing end date" },
-                    min: { value: getValues("startDate"), message: "End date must be later than start date" }
+                    min: { value: today && getValues("startDate") || today, message: "End date must be later than start date" }
                 })} />
                 <span className="error">{errors.endDate?.message}</span>
                 <br />

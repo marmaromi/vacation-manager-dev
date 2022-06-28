@@ -39,7 +39,8 @@ class VacationModel {
         price: Joi.number().required().min(200).max(100000),
         imageName: Joi.string().optional().max(50),
         image: Joi.object().optional(),
-        followers: Joi.number().optional().min(0).max(10000000)
+        followers: Joi.number().optional().min(0).max(10000000),
+        isFollowing: Joi.boolean().optional()
     });
 
     private static putValidationSchema = Joi.object({
@@ -51,7 +52,8 @@ class VacationModel {
         price: Joi.number().required().min(200).max(100000),
         imageName: Joi.string().optional().max(50),
         image: Joi.object().optional(),
-        followers: Joi.number().optional().min(0).max(10000000)
+        followers: Joi.number().optional().min(0).max(10000000),
+        isFollowing: Joi.boolean().optional()
     })
 
     // private static PatchValidationSchema = Joi.object({
@@ -65,7 +67,7 @@ class VacationModel {
     //     followers: Joi.number().optional().min(0).max(10000000)
     // })
 
-    public validatePost(): string {
+    public validatePost(): string {        
         const result = VacationModel.postValidationSchema.validate(this);        
         return result.error?.message;
     }
