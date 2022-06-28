@@ -5,6 +5,7 @@ import About from "../../AboutArea/About/About";
 import Login from "../../AuthArea/login/login";
 import Logout from "../../AuthArea/logout/logout";
 import Register from "../../AuthArea/register/register";
+import Reports from "../../ReportsArea/Reports/Reports";
 import AddVacation from "../../VacationArea/AddVacation/AddVacation";
 import EditVacation from "../../VacationArea/EditVacation/EditVacation";
 import Main from "../Main/Main";
@@ -27,7 +28,7 @@ function Routing(): JSX.Element {
                 <Route path="/vacations/new" element={<AddVacation />} />
                 <Route path="/vacations/edit/:vacationId" element={<EditVacation />} />
 
-                <Route path="/reports" element={<EditVacation />} />
+                <Route path="/reports" element={<Reports />} />
 
                 <Route path="/about" element={<About />} />
 

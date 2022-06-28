@@ -19,7 +19,7 @@ class SocketService {
         });
 
         // Listen to updating by admin: 
-        this.socket.on("admin-updated-vacation", (vacation: VacationModel) => {
+        this.socket.on("admin-updated-vacation", (vacation: VacationModel) => {            
             store.dispatch(editVacationAction(vacation));
         });
 
@@ -28,7 +28,7 @@ class SocketService {
             store.dispatch(deleteVacationAction(id));
         });
 
-        this.socket.on("user-followed-vacation", (vacation: VacationModel) => {
+        this.socket.on("user-followed-vacation", (vacation: VacationModel) => {            
             store.dispatch(editVacationAction(vacation));            
         });
 

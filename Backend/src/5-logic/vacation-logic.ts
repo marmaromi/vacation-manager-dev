@@ -38,12 +38,13 @@ const getOneVacation = async (id: number): Promise<VacationModel> => {
 
     const vacations: VacationModel[] = await dal.execute(sql);
     const vacation = vacations[0];
+
     if (!vacation) {
         throw new ResourceNotFoundError(id);
     }
 
     vacation.startDate = new Date(vacation.startDate).toISOString().slice(0, -14);
-    vacation.endDate = new Date(vacation.endDate).toISOString().slice(0, -14);    
+    vacation.endDate = new Date(vacation.endDate).toISOString().slice(0, -14);
 
     return vacation;
 }
@@ -117,7 +118,7 @@ async function updateVacation(vacation: VacationModel): Promise<VacationModel> {
 
     const values = [vacation.description, vacation.destination, vacation.startDate, vacation.endDate, vacation.price, vacation.imageName, vacation.followers]
 
-    const result: OkPacket = await dal.execute(sql,values);
+    const result: OkPacket = await dal.execute(sql, values);
     if (result.affectedRows === 0) {
         throw new ResourceNotFoundError(vacation.id);
     }
@@ -127,11 +128,6 @@ async function updateVacation(vacation: VacationModel): Promise<VacationModel> {
 }
 
 const deleteVacation = async (id: number): Promise<void> => {
-    const sql = `DELETE FROM vacations WHERE vacationId = ${id}`
-    const result: OkPacket = await dal.execute(sql);
-    if (result.affectedRows === 0) {
-        throw new ResourceNotFoundError(id);
-    }
 
     const vacationToDelete: VacationModel = await getOneVacation(id);
     const imageToDelete = "./src/1-assets/images/" + vacationToDelete.imageName;
@@ -142,6 +138,13 @@ const deleteVacation = async (id: number): Promise<void> => {
         }
         else console.log(`File was deleted in path: "${imageToDelete}"`);
     });
+    
+    const sql = `DELETE FROM vacations WHERE vacationId = ${id}`
+    const result: OkPacket = await dal.execute(sql);
+
+    if (result.affectedRows === 0) {
+        throw new ResourceNotFoundError(id);
+    }
 
     socketLogic.reportDeleteVacation(id);
 }

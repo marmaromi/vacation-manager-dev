@@ -21,7 +21,7 @@ function VacationCard(props: VacationCardProps): JSX.Element {
     const [startDate, setStartDate] = useState<string>("");
     const [endDate, setEndDate] = useState<string>("");
 
-    useEffect(() => {
+    useEffect(() => {        
         const user = store.getState().authStore.user;
         setUserId(user.id);
 
@@ -60,7 +60,7 @@ function VacationCard(props: VacationCardProps): JSX.Element {
                 </div>
                 <div className="dateAndPrice">
                     Dates: {startDate} - {endDate} <br />
-                    Price: {props.vacation.price}$
+                    Price: {props.vacation.price}₪
                 </div>
             </div>
 

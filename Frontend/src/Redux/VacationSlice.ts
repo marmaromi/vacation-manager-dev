@@ -24,7 +24,7 @@ export const vacationsSlice = createSlice({
             const indexToUpdate = state.vacations.findIndex(vac => vac.id === action.payload.id);
             if (indexToUpdate >= 0) {
                 state.vacations[indexToUpdate] = action.payload;
-            }
+            }            
         },
         deleteVacationAction: (state, action: PayloadAction<number>) => {
             const indexToDelete = state.vacations.findIndex(vac => vac.id === action.payload);

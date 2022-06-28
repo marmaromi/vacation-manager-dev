@@ -20,7 +20,7 @@ function reportAddVacation(vacation: VacationModel): void {
 }
 
 // Reporting a vacation updated by the admin:
-function reportUpdateVacation(vacation: VacationModel): void {
+function reportUpdateVacation(vacation: VacationModel): void {    
     socketServer.sockets.emit("admin-updated-vacation", vacation);
 }
 

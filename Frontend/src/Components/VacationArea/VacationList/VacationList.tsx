@@ -29,7 +29,8 @@ function VacationList(): JSX.Element {
 
         const unsubscribe = store.subscribe(() => {
             const dup = [...store.getState().vacationsStore.vacations];
-            // console.log(dup);
+            setVacations(dup);
+            // console.log("dup",dup);
 
             // const user = store.getState().authStore.user;
             // vacationsService.sortVacations(user.id, dup)
