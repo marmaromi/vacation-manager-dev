@@ -89,29 +89,23 @@ class VacationsService {
         const response = await axios.put<VacationModel>(config.followerCountUrl + vacation.id, vacation);
         const updatedVacation = response.data;
         updatedVacation.isFollowing = vacation.isFollowing;
-        // console.log(updatedVacation);
-
         store.dispatch(editVacationAction(updatedVacation));
         return updatedVacation;
     }
 
     public async sortVacations(userId: number, vacations: VacationModel[]): Promise<VacationModel[]> {
-        // console.log(vacations);
-
         const followedVacations = await this.vacationsUserFollows(userId);
-        // console.log(vacations);
-        // vacations.map(v => { followedVacations.includes(v.id) ? v.isFollowing = true : v.isFollowing = false; return v; });
-        vacations.forEach(v => {
-            if (followedVacations.includes(v.id)) {
-                v.isFollowing = true;
-            }
-            else {
-                v.isFollowing = false;
-            }
-            // console.log(v.isFollowing);
-
-            return v;
-        });
+        vacations.map(v => { followedVacations.includes(v.id) ? v.isFollowing = true : v.isFollowing = false; return v; });
+        // vacations.forEach(v => {
+        //     if (followedVacations.includes(v.id)) {
+        //         v.isFollowing = true;
+        //     }
+        //     else {
+        //         v.isFollowing = false;
+        //     }
+        //     
+        //     return v;
+        // });
         vacations.sort((x, y) => x.isFollowing === y.isFollowing ? 0 : x.isFollowing ? -1 : 1);
 
         return vacations;
