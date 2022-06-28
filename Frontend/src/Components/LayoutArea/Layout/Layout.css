@@ -17,16 +17,9 @@
 }
 
 .Layout .content-wrap {
-    padding-bottom: 2.5rem;
+    padding-bottom: 15rem;
 }
 
 .Layout footer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 2.5rem;
-    background-image: linear-gradient(to left bottom, #b4deac, #b1d4a1, #aeca97, #abc18d, #a7b783);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+
 }
