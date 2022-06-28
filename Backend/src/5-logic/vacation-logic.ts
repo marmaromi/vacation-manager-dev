@@ -112,21 +112,12 @@ async function updateVacation(vacation: VacationModel): Promise<VacationModel> {
     vacation.followers = await followerCount(vacation.id);
 
     const sql = `UPDATE vacations 
-                 SET description = '${vacation.description}',
-                     destination = '${vacation.destination}',
-                     startDate = '${vacation.startDate}',
-                     endDate = '${vacation.endDate}',
-                     price = ${vacation.price},
-                     imageName = '${vacation.imageName}',
-                     followers = ${vacation.followers}
+                 SET description = ?, destination = ?, startDate = ?, endDate = ?, price = ?, imageName = ?, followers = ?
                  WHERE vacationId = ${vacation.id}`;
-    // const sql = `UPDATE vacations 
-    //              SET description = ?, destination = ?, startDate = ?, endDate = ?, price = ?, imageName = ?, followers = ?
-    //              WHERE vacationId = ${vacation.id}`;
 
     const values = [vacation.description, vacation.destination, vacation.startDate, vacation.endDate, vacation.price, vacation.imageName, vacation.followers]
 
-    const result: OkPacket = await dal.execute(sql);
+    const result: OkPacket = await dal.execute(sql,values);
     if (result.affectedRows === 0) {
         throw new ResourceNotFoundError(vacation.id);
     }
@@ -158,12 +149,9 @@ const deleteVacation = async (id: number): Promise<void> => {
 const UpdateFollowerCount = async (): Promise<void> => {
     const sql = `UPDATE vacations SET followers = (SELECT COUNT(vacationId) as followers FROM user_tagged_vacations WHERE vacations.vacationId = user_tagged_vacations.vacationId)`;
     await dal.execute(sql);
-
 }
 
 const followerCount = async (id: number): Promise<number> => {
-    // UPDATE vacations SET followers = (SELECT COUNT(vacationId) as followers FROM user_tagged_vacations WHERE vacations.vacationId = user_tagged_vacations.vacationId);
-
     const sql = `SELECT COUNT(vacationId) as followers FROM user_tagged_vacations WHERE vacationId = ${id}`;
 
     const result = await dal.execute(sql);
