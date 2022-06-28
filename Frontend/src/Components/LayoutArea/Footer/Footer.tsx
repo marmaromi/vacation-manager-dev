@@ -12,6 +12,8 @@ function Footer(): JSX.Element {
                 <li>need to adjust footer size per content</li>
                 <li>add real content to the footer</li>
                 <li>upload to an external host</li>
+                <li>add error log to the backend</li>
+                <li>maybe encrypt user ids?</li>
             </ul>
         </div>
     );
