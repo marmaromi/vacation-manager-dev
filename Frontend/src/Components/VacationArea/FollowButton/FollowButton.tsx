@@ -31,11 +31,8 @@ function FollowButton(props: FollowButtonProps): JSX.Element {
 
         const unsubscribe = store.subscribe(() => {
             const dup = [...store.getState().vacationsStore.vacations];
-            // console.log(store.getState().vacationsStore.vacations);
-
             const vacation = dup.find(v => v.id === props.vacation.id);
             setTotalFollowers(vacation.followers);
-
         });
 
         return () => unsubscribe();

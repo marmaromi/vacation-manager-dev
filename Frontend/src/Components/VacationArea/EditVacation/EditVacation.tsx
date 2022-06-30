@@ -7,31 +7,23 @@ import notifyService from "../../../Services/NotifyService";
 import vacationsService from "../../../Services/VacationsService";
 import "./EditVacation.css";
 
-
 function EditVacation(): JSX.Element {
 
     const params = useParams();
     const navigate = useNavigate();
     const { register, handleSubmit, formState: { errors }, getValues, setValue, watch } = useForm<VacationModel>();
-    const [vacation, setVacation] = useState<VacationModel>();
     const [vacationId, setVacationId] = useState<number>();
     const [today, setToday] = useState<string>("");
 
 
     useEffect(() => {
-        if (!store.getState().authStore?.token) {
-            navigate("/login");
-        }
-
-        if (store.getState().authStore?.user?.privileges !== "admin") {
-            navigate("/vacations");
-        }
+        if (!store.getState().authStore?.token) navigate("/login");
+        if (store.getState().authStore?.user?.privileges !== "admin") navigate("/vacations");
 
         const vacationId: number = +params.vacationId;
         setVacationId(vacationId);
         vacationsService.getOneVacation(vacationId)
             .then(vacationToEdit => {
-                setVacation(vacationToEdit);
                 setValue("destination", vacationToEdit.destination);
                 setValue("description", vacationToEdit.description);
                 setValue("startDate", new Date(vacationToEdit.startDate).toISOString().slice(0, -14));
@@ -42,7 +34,6 @@ function EditVacation(): JSX.Element {
             .catch(err => alert(err.message));
 
         setToday(new Date().toISOString().slice(0, -14));
-
     }, [])
 
     async function send(vacation: VacationModel) {
@@ -68,7 +59,6 @@ function EditVacation(): JSX.Element {
                 <label>Destination: </label>
                 <input type="text" {...register("destination", {
                     required: { value: true, message: "Missing destination" },
-                    // pattern: { value: /^[A-Za-z0-9]+$/, message: "Special Characters are not allowed" },
                     minLength: { value: 2, message: "Minimum 2 letters" },
                     maxLength: { value: 50, message: "Maximum 50 letters" },
                 })} />
@@ -85,7 +75,7 @@ function EditVacation(): JSX.Element {
                 <br />
 
                 <label>Start Date: </label>
-                <input type="date" min={getValues("endDate") && today || today} max={getValues("endDate")} {...register("startDate", {
+                <input type="date" min={getValues("endDate") && today || today} {...register("startDate", {
                     required: { value: true, message: "Missing start date" },
                     min: { value: getValues("endDate") && today || today, message: "Start date must be today or later" },
                     max: { value: getValues("endDate"), message: "Start date must be before end date" }
@@ -112,15 +102,13 @@ function EditVacation(): JSX.Element {
 
                 <div className="mb3">
                     <label htmlFor="file" className="form-label">Image: </label>
-                    {/* <input type="file" className="form-control" accept="image/*" {...register("image")} /> */}
+                    <input type="file" className="form-control" accept="image/*" {...register("image")} />
                     <span className="error">{errors.image?.message}</span>
                     <br />
                 </div>
 
                 <button>Edit Vacation</button>
-
             </form>
-
         </div>
     );
 }

@@ -9,7 +9,6 @@
 }
 
 .Layout .adminLayout {
-    /* border: 1px solid black; */
     padding: 8px;
     background-color: rgba(0, 0, 0, 0.8);
     color: #f5f5f7;
@@ -18,8 +17,4 @@
 
 .Layout .content-wrap {
     padding-bottom: 18rem;
-}
-
-.Layout footer {
-
 }

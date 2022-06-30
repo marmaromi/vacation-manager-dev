@@ -29,9 +29,7 @@ function Reports(): JSX.Element {
             >
                 <VictoryAxis
                     style={{
-                        tickLabels: {
-                            fontSize: 9
-                        }
+                        tickLabels: { fontSize: 9 }
                     }}
                 />
                 <VictoryAxis
@@ -46,23 +44,6 @@ function Reports(): JSX.Element {
                     }}
                     data={followers}
                 />
-                {/* <VictoryBar
-                    style={{
-                        data: { fill: "#c43a31" },
-                        labels: { fontSize: 12 },
-
-                    }}
-                    data={followers}
-                    labels={({ datum }) => `Followers: ${datum.y}`}
-                    labelComponent={<VictoryTooltip />}
-                    dataComponent={
-                        <Bar
-                            tabIndex={0}
-                            ariaLabel={({ datum }) => `x: ${datum.x}`}
-                        />
-                    }
-                /> */}
-
             </VictoryChart>
         </div>
     );

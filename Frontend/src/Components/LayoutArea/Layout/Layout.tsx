@@ -13,16 +13,10 @@ function Layout(): JSX.Element {
     useEffect(() => {
         const unsubscribe = store.subscribe(() => {
             const user = store.getState().authStore.user;
-            if (user?.privileges === 'admin') {
-                setRole(user.privileges);
-
-            } else {
-                setRole('')
-            }
+            user?.privileges === 'admin' ? setRole(user.privileges) : setRole('');
         });
 
         return () => unsubscribe();
-
     }, []);
 
     return (
@@ -34,7 +28,6 @@ function Layout(): JSX.Element {
             </div>
 
             <footer> <Footer /> </footer>
-
         </div>
     );
 }

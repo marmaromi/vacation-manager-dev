@@ -17,20 +17,18 @@ interface VacationCardProps {
 function VacationCard(props: VacationCardProps): JSX.Element {
 
     const [role, setRole] = useState<string>('');
-    const [userId, setUserId] = useState<number>();
     const [startDate, setStartDate] = useState<string>("");
     const [endDate, setEndDate] = useState<string>("");
 
-    useEffect(() => {        
+    useEffect(() => {
         const user = store.getState().authStore.user;
-        setUserId(user.id);
-
         if (user?.privileges === 'admin') setRole(user.privileges);
         else setRole('')
+    }, []);
 
+    useEffect(() => {
         setStartDate(new Date(props.vacation.startDate).toLocaleDateString("he-il"));
         setEndDate(new Date(props.vacation.endDate).toLocaleDateString("he-il"));
-        
     }, []);
 
     // const [imgSrc, setImgSrc] = useState<FileList>();

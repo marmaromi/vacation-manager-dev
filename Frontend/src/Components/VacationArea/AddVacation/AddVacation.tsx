@@ -14,18 +14,10 @@ function AddVacation(): JSX.Element {
     const [today, setToday] = useState<string>("");
 
     useEffect(() => {
-
-        if (!store.getState().authStore?.token) {
-            navigate("/login");
-        }
-
-        if (store.getState().authStore?.user?.privileges !== "admin") {
-            navigate("/vacations");
-        }
+        if (!store.getState().authStore?.token) navigate("/login");
+        if (store.getState().authStore?.user?.privileges !== "admin") navigate("/vacations");
 
         setToday(new Date().toISOString().slice(0, -14));
-
-
     }, [])
 
     async function send(vacation: VacationModel) {
@@ -50,7 +42,6 @@ function AddVacation(): JSX.Element {
                 <label>Destination: </label>
                 <input type="text" {...register("destination", {
                     required: { value: true, message: "Missing destination" },
-                    // pattern: { value: /^[A-Za-z0-9]+$/, message: "Special Characters are not allowed" },
                     minLength: { value: 2, message: "Minimum 2 letters" },
                     maxLength: { value: 50, message: "Maximum 50 letters" },
                 })} />
@@ -102,9 +93,7 @@ function AddVacation(): JSX.Element {
                 </div>
 
                 <button>Add Vacation</button>
-
             </form>
-
         </div>
     );
 }

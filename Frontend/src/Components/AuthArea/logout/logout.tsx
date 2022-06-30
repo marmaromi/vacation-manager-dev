@@ -16,10 +16,8 @@ function Logout(): JSX.Element {
         const unsubscribe = store.subscribe(() => {
             setUser(store.getState().authStore.user);
         });
-        // console.log(store.getState().authStore);
         
         return () => unsubscribe();
-
     }, [])
 
 

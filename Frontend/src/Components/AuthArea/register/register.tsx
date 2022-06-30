@@ -10,14 +10,11 @@ import "./register.css";
 
 function Register(): JSX.Element {
 
-
     const navigate = useNavigate();
     const { register, handleSubmit, formState: { errors } } = useForm<UserModel>();
 
     useEffect(() => {
-        if (store.getState().authStore.token) {
-            navigate("/vacations");
-        }
+        if (store.getState().authStore.token) navigate("/vacations");
     }, [])
 
     async function send(user: UserModel) {

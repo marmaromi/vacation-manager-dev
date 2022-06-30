@@ -14,10 +14,8 @@ function Login(): JSX.Element {
     const { register, handleSubmit, formState: { errors } } = useForm<CredentialsModel>();
 
     useEffect(() => {
-        if (store.getState().authStore.token) {
-            navigate("/vacations");
-        }
-    }, [])
+        if (store.getState().authStore.token) navigate("/vacations");
+    }, []);
 
     async function send(user: CredentialsModel) {
         try {

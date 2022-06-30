@@ -18,32 +18,29 @@ function VacationList(): JSX.Element {
 
         socketService.connect();
 
-        if (!authService.isLoggedIn()) {
-            navigate("/login");
-        }
+        if (!authService.isLoggedIn()) navigate("/login");
         else {
             vacationsService.getAllVacations()
                 .then(vacations => setVacations(vacations))
                 .catch(err => notifyService.error(err.message));
         }
 
+        return () => socketService.disconnect();
+    }, []);
+
+    useEffect(() => {
         const unsubscribe = store.subscribe(() => {
-            const dup = [...store.getState().vacationsStore.vacations];
-            setVacations(dup);
-            // console.log("dup",dup);
+            setVacations(store.getState().vacationsStore.vacations);
 
             // const user = store.getState().authStore.user;
-            // vacationsService.sortVacations(user.id, dup)
+            // vacationsService.sortVacations(user.id, vacations)
             //     .then(sortedVacations => setVacations(sortedVacations))
             //     .catch(err => console.log(err));
         });
 
-        return () => {
-            socketService.disconnect();
-            unsubscribe();
-        };
-        // eslint-disable-next-line
-    }, []);
+        return () => unsubscribe();
+    }, [vacations])
+
     return (
         <div className="VacationList">
             {vacations.length === 0 && <Loading />}
