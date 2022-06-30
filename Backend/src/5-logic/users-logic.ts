@@ -95,6 +95,12 @@ const userUnFollowsVacation = async (userId: number, vacationId: number): Promis
     }
 }
 
+const getUserCount = async (): Promise<number> => {
+    const sql = `SELECT COUNT(userId) as userCount FROM users`;
+    const userCount = await dal.execute(sql);    
+    return userCount[0].userCount;
+}
+
 
 export default {
     register,
@@ -102,7 +108,11 @@ export default {
     vacationsUserFollows,
     userFollowsVacation,
     userUnFollowsVacation,
+    getUserCount
 }
+
+
+
 
 // const getAllUsers = async (): Promise<UserModel[]> => {
 //     const sql = `SELECT userId as id,

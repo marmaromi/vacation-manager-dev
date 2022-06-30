@@ -3,3 +3,8 @@
     text-decoration-thickness: 2px;
     text-decoration-color: #9a9a9b;
 }
+
+.Header p {
+
+    transform: translate(0, 0.5rem);
+}

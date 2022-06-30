@@ -9,7 +9,7 @@ class AuthService {
 
     public async register(user: UserModel): Promise<void> {
         const response = await axios.post<string>(config.registerUrl, user);
-        const token = response.data;        
+        const token = response.data;
         store.dispatch(registerAction(token));
     }
 
@@ -28,6 +28,11 @@ class AuthService {
 
     public isLoggedIn(): boolean {
         return store.getState().authStore.user !== null;
+    }
+
+    public async getUserCount(): Promise<number> {
+        const response = await axios.get<number>(config.userCountUrl);        
+        return response.data;
     }
 }
 

@@ -67,5 +67,15 @@ router.delete("/users/following/:userId([0-9]+)/:vacationId([0-9]+)", async (req
     }
 });
 
+router.get("/users/count", async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const userCount = await usersLogic.getUserCount();
+        res.json(userCount);
+
+    } catch (error) {
+        next(error);
+    }
+});
+
 
 export default router;

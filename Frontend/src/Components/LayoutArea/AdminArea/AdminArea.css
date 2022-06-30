@@ -9,10 +9,14 @@
 }
 
 .AdminArea .right {
-  text-align:end
+  text-align: end
 }
 
 .AdminArea .left {
-text-align: start;
+  text-align: start;
 }
 
+.AdminArea p {
+  margin-bottom: 0;
+
+}

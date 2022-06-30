@@ -19,16 +19,9 @@ function VacationList(): JSX.Element {
 
         if (!authService.isLoggedIn()) navigate("/login");
         else {
-            let vacations = store.getState().vacationsStore.vacations;
-            if (vacations.length === 0) {
-                vacationsService.getAllVacations()
-                    .then(vacations => setVacations(vacations))
-                    .catch(err => {
-                        notifyService.error(err.message);
-                        console.log(err);
-
-                    });
-            }
+            vacationsService.getAllVacations()
+                .then(vacations => setVacations(vacations))
+                .catch(err => notifyService.error(err.message));
         }
 
         return () => socketService.disconnect();
