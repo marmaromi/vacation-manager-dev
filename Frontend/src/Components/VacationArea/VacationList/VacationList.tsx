@@ -6,7 +6,6 @@ import { store } from "../../../Redux/Store";
 import authService from "../../../Services/AuthService";
 import socketService from "../../../Services/SocketService";
 import vacationsService from "../../../Services/VacationsService";
-import Loading from "../../SharedArea/Loading/Loading";
 import VacationCard from "../VacationCard/VacationCard";
 import notifyService from "../../../Services/NotifyService";
 
@@ -43,7 +42,7 @@ function VacationList(): JSX.Element {
 
     return (
         <div className="VacationList">
-            {vacations.length === 0 && <Loading />}
+            {/* {vacations.length === 0 && <Loading />} */}
             {vacations.map(v => <VacationCard key={v.id} vacation={v} />)}
 
         </div>

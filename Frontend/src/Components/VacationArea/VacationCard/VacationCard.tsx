@@ -3,8 +3,6 @@ import { NavLink } from "react-router-dom";
 import VacationModel from "../../../Models/Vacation Model";
 import { store } from "../../../Redux/Store";
 import vacationsService from "../../../Services/VacationsService";
-// import notifyService from "../../../Services/NotifyService";
-// import vacationsService from "../../../Services/VacationsService";
 import config from "../../../Utils/config";
 import editIcon from "../../../assets/images/edit-icon.png";
 import "./VacationCard.css";
@@ -31,23 +29,10 @@ function VacationCard(props: VacationCardProps): JSX.Element {
         setEndDate(new Date(props.vacation.endDate).toLocaleDateString("he-il"));
     }, []);
 
-    // const [imgSrc, setImgSrc] = useState<FileList>();
-    // useEffect(() => {
-    //     vacationsService.getVacationImage(props.vacation.imageName)
-    //         .then(image => {
-    //             console.log(image);
-
-    //             setImgSrc(image)
-    //         })
-    //         .catch(err => notifyService.error(err.message));
-    // }, [])
-
     return (
         <div className="VacationCard Box" >
-            <div>
-                {/* <img src={imgSrc} /> */}
-                <img src={config.vacationImagesUrl + props.vacation.imageName} />
-            </div>
+
+            <img src={config.vacationImagesUrl + props.vacation.imageName} />
 
             <div className="textProp">
                 <div className="topLeftImage">
@@ -72,13 +57,8 @@ function VacationCard(props: VacationCardProps): JSX.Element {
                 ||
 
                 <FollowButton vacation={props.vacation} user={store.getState().authStore.user} />
-                // <button type="button" className="bottomRightUser btn btn-primary" onClick={() => followVacation(props.vacation.id)}>
-                //     Follow <span className="badge bg-secondary">{followers}</span>
-                // </button>
             }
-
-
-
+            
         </div>
     );
 }
