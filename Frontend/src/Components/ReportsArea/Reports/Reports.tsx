@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { VictoryBar, VictoryChart, VictoryTooltip, Bar, VictoryAxis } from 'victory';
 import VacationModel from '../../../Models/Vacation Model';
 import { store } from '../../../Redux/Store';
+import notifyService from '../../../Services/NotifyService';
 import vacationsService from '../../../Services/VacationsService';
 import "./Reports.css";
 
@@ -10,12 +11,14 @@ function Reports(): JSX.Element {
     const [followers, setFollowers] = useState<number[]>();
 
     useEffect(() => {
-        let storeVacations = store.getState().vacationsStore.vacations;
-        if (storeVacations.length === 0) {
-            vacationsService.getAllVacations().then(vacations => getFollowers(vacations));
+        let vacations = store.getState().vacationsStore.vacations;
+        if (vacations.length === 0) {
+            vacationsService.getAllVacations()
+                .then(vacations => getFollowers(vacations))
+                .catch(err => notifyService.error(err.message));
         }
         else {
-            getFollowers(storeVacations);
+            getFollowers(vacations);
         }
     }, []);
 

@@ -18,6 +18,12 @@ function AddVacation(): JSX.Element {
         if (store.getState().authStore?.user?.privileges !== "admin") navigate("/vacations");
 
         setToday(new Date().toISOString().slice(0, -14));
+
+        // not really necessary for this component, a stupid solution to make admin layout show on page reload...
+        let vacations = store.getState().vacationsStore.vacations;
+        if (vacations.length === 0) {
+            vacationsService.getAllVacations()
+        }
     }, [])
 
     async function send(vacation: VacationModel) {

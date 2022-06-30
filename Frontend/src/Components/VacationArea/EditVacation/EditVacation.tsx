@@ -34,6 +34,12 @@ function EditVacation(): JSX.Element {
             .catch(err => alert(err.message));
 
         setToday(new Date().toISOString().slice(0, -14));
+
+        // not really necessary for this component, a stupid solution to make admin layout show on page reload...
+        let vacations = store.getState().vacationsStore.vacations;
+        if (vacations.length === 0) {
+            vacationsService.getAllVacations()
+        }
     }, [])
 
     async function send(vacation: VacationModel) {
