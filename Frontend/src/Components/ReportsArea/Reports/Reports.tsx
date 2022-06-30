@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { VictoryBar, VictoryChart, VictoryTooltip, Bar, VictoryAxis } from 'victory';
+import VacationModel from '../../../Models/Vacation Model';
 import { store } from '../../../Redux/Store';
 import vacationsService from '../../../Services/VacationsService';
 import "./Reports.css";
@@ -9,8 +10,16 @@ function Reports(): JSX.Element {
     const [followers, setFollowers] = useState<number[]>();
 
     useEffect(() => {
-        const vacations = store.getState().vacationsStore.vacations;
+        let storeVacations = store.getState().vacationsStore.vacations;
+        if (storeVacations.length === 0) {
+            vacationsService.getAllVacations().then(vacations => getFollowers(vacations));
+        }
+        else {
+            getFollowers(storeVacations);
+        }
+    }, []);
 
+    const getFollowers = (vacations: VacationModel[]): void => {
         const followers: any[] = [];
         for (const vacation of vacations) {
             if (vacation.followers) {
@@ -18,7 +27,8 @@ function Reports(): JSX.Element {
             }
         }
         setFollowers(followers.sort((a, b) => b.y - a.y));
-    }, [])
+    }
+
 
     return (
         <div className="Reports">
