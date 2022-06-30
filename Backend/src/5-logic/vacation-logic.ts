@@ -61,17 +61,13 @@ const addVacation = async (vacation: VacationModel): Promise<VacationModel> => {
         const dotIndex = vacation.image.name.lastIndexOf(".");
         const extension = vacation.image.name.substring(dotIndex);
         vacation.imageName = uuid() + extension;
-
-
         await vacation.image.mv("./src/1-assets/images/" + vacation.imageName);
 
         delete vacation.image;
     }
 
     const sql = `INSERT INTO vacations VALUES(DEFAULT, ?, ?, ?, ?, ?, ?, 0)`;
-
     const values = [vacation.description, vacation.destination, vacation.startDate, vacation.endDate, vacation.price, vacation.imageName]
-
     const result: OkPacket = await dal.execute(sql, values);
     vacation.id = result.insertId;
 
@@ -116,7 +112,7 @@ async function updateVacation(vacation: VacationModel): Promise<VacationModel> {
                  SET description = ?, destination = ?, startDate = ?, endDate = ?, price = ?, imageName = ?, followers = ?
                  WHERE vacationId = ${vacation.id}`;
 
-    const values = [vacation.description, vacation.destination, vacation.startDate, vacation.endDate, vacation.price, vacation.imageName, vacation.followers]
+    const values = [vacation.description, vacation.destination, vacation.startDate, vacation.endDate, vacation.price, vacation.imageName, vacation.followers];
 
     const result: OkPacket = await dal.execute(sql, values);
     if (result.affectedRows === 0) {
@@ -128,7 +124,6 @@ async function updateVacation(vacation: VacationModel): Promise<VacationModel> {
 }
 
 const deleteVacation = async (id: number): Promise<void> => {
-
     const vacationToDelete: VacationModel = await getOneVacation(id);
     const imageToDelete = "./src/1-assets/images/" + vacationToDelete.imageName;
 
@@ -138,7 +133,7 @@ const deleteVacation = async (id: number): Promise<void> => {
         }
         else console.log(`File was deleted in path: "${imageToDelete}"`);
     });
-    
+
     const sql = `DELETE FROM vacations WHERE vacationId = ${id}`
     const result: OkPacket = await dal.execute(sql);
 
@@ -167,16 +162,11 @@ const userFollowChange = async (vacationId: number): Promise<VacationModel> => {
     vacationToUpdate.followers = await followerCount(vacationId);
 
     const sql = `UPDATE vacations 
-                 SET description = '${vacationToUpdate.description}',
-                     destination = '${vacationToUpdate.destination}',
-                     startDate = '${vacationToUpdate.startDate}',
-                     endDate = '${vacationToUpdate.endDate}',
-                     price = ${vacationToUpdate.price},
-                     imageName = '${vacationToUpdate.imageName}',
-                     followers = ${vacationToUpdate.followers}
-                 WHERE vacationId = ${vacationId}`;
+                 SET description = ?, destination = ?, startDate = ?, endDate = ?, price = ?, imageName = ?, followers = ?
+                 WHERE vacationId = ${vacationToUpdate.id}`;
+    const values = [vacationToUpdate.description, vacationToUpdate.destination, vacationToUpdate.startDate, vacationToUpdate.endDate, vacationToUpdate.price, vacationToUpdate.imageName, vacationToUpdate.followers];
 
-    const result: OkPacket = await dal.execute(sql);
+    const result: OkPacket = await dal.execute(sql, values);
     if (result.affectedRows === 0) {
         throw new ResourceNotFoundError(vacationId);
     }
