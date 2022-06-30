@@ -14,13 +14,9 @@ class InterceptorService {
                     authorization: "Bearer " + store.getState().authStore.token
                 };
             }
-
             return request;
-
         });
-
     }
-
 }
 
 const interceptorService = new InterceptorService();

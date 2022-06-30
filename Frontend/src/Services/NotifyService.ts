@@ -15,19 +15,14 @@ class NotifyService {
 
     private extractError(err: any): string {
 
-        // throw "some error..."
         if (typeof err === "string") return err;
 
-        // axios reporting a single error from backend:
         if (typeof err.response?.data === "string") return err.response.data;
 
-        // axios reporting an array of errors from backend:
         if (Array.isArray(err.response?.data)) return err.response.data[0];
 
-        // throw new Error(...) - must be lats
         if (typeof err.message === "string") return err.message;
 
-        // Non of the above
         return "Some error, please try again.";
     }
 

@@ -5,7 +5,6 @@ class UserModel {
     public username: string;
     public password: string;
     public privileges: string;
-    // public followedVacations: number[];
 }
 
 export default UserModel;

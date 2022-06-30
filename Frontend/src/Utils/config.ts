@@ -20,8 +20,6 @@ class DevelopmentConfig extends Config {
     public followerCountUrl = "http://localhost:3002/api/vacations/followers/";
     public followedVacations = "http://localhost:3002/api/users/following/";
     public socketIo = "http://localhost:3002/";
-
-
 }
 
 class TestConfig extends Config {
@@ -34,8 +32,6 @@ class TestConfig extends Config {
     public followerCountUrl = "http://localhost:3002/api/vacations/followers/";
     public followedVacations = "http://localhost:3002/api/users/following/";
     public socketIo = "http://localhost:3002/";
-
-
 }
 
 class ProductionConfig extends Config {
@@ -49,8 +45,6 @@ class ProductionConfig extends Config {
     public followerCountUrl = "https://vacation-manager-ido.herokuapp.com/api/vacations/followers/";
     public followedVacations = "https://vacation-manager-ido.herokuapp.com/api/users/following/";
     public socketIo = "https://vacation-manager-ido.herokuapp.com/";
-
-
 }
 
 let config: Config;

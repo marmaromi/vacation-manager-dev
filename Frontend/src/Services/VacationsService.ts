@@ -15,7 +15,6 @@ class VacationsService {
 
             const user = store.getState().authStore.user;
             const sortedVacations = await this.sortVacations(user.id, vacations);
-            
             vacations.splice(0, sortedVacations.length, ...sortedVacations);
 
             store.dispatch(getAllVacationsAction(vacations));
@@ -69,6 +68,7 @@ class VacationsService {
         return image;
     }
 
+    // followers related Methods
     public async vacationsUserFollows(userId: number): Promise<number[]> {
         const response = await axios.get<number[]>(config.followedVacations + userId);
         const followedVacations = response.data;
@@ -93,6 +93,7 @@ class VacationsService {
         return updatedVacation;
     }
 
+    // other Methods
     public async sortVacations(userId: number, vacations: VacationModel[]): Promise<VacationModel[]> {
         const followedVacations = await this.vacationsUserFollows(userId);
         vacations.map(v => { followedVacations.includes(v.id) ? v.isFollowing = true : v.isFollowing = false; return v; });

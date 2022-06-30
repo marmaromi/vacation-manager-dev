@@ -8,7 +8,7 @@ export class UserSliceState {
     public user: UserModel = null;
 
     public constructor() {
-        this.token = localStorage.getItem("token"); // Restore token from storage.
+        this.token = localStorage.getItem("token");
         if (this.token) {
             this.user = (jwtDecode(this.token) as any).user;
         }

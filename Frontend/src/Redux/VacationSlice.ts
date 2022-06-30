@@ -31,19 +31,7 @@ export const vacationsSlice = createSlice({
             if (indexToDelete >= 0) {
                 state.vacations.splice(indexToDelete, 1);
             }
-        },
-        // addFollowerAction: (state, action: PayloadAction<number>) => {
-        //     const indexToUpdate = state.vacations.findIndex(vac => vac.id === action.payload);
-        //     if (indexToUpdate >= 0) {
-        //         state.vacations[indexToUpdate].followers++;
-        //     }            
-        // },
-        // removeFollowerAction: (state, action: PayloadAction<VacationModel>) => {
-        //     const indexToUpdate = state.vacations.findIndex(vac => vac.id === action.payload.id);
-        //     if (indexToUpdate >= 0) {
-        //         state.vacations[indexToUpdate] = action.payload;
-        //     }            
-        // }
+        }
     }
 })
 

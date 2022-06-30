@@ -13,17 +13,15 @@ class SocketService {
     }
 
     private listen(): void {
-        // Listen to adding by admin: 
+        
         this.socket.on("admin-added-vacation", (vacation: VacationModel) => {
             store.dispatch(addVacationsAction(vacation));
         });
 
-        // Listen to updating by admin: 
         this.socket.on("admin-updated-vacation", (vacation: VacationModel) => {            
             store.dispatch(editVacationAction(vacation));
         });
 
-        // Listen to deleting by admin: 
         this.socket.on("admin-deleted-vacation", (id: number) => {
             store.dispatch(deleteVacationAction(id));
         });
@@ -31,7 +29,6 @@ class SocketService {
         this.socket.on("user-followed-vacation", (vacation: VacationModel) => {            
             store.dispatch(editVacationAction(vacation));            
         });
-
     }
 
     public disconnect(): void {
