@@ -6,6 +6,7 @@ import UserModel from "../../../Models/UserModel";
 import { store } from "../../../Redux/Store";
 import authService from "../../../Services/AuthService";
 import notifyService from "../../../Services/NotifyService";
+import vacationsService from "../../../Services/VacationsService";
 import "./register.css";
 
 function Register(): JSX.Element {
@@ -21,6 +22,7 @@ function Register(): JSX.Element {
         try {
             await authService.register(user);
             notifyService.success("You have been successfully registered.");
+            vacationsService.getAllVacations();
             navigate("/vacations");
         }
         catch (err: any) {
