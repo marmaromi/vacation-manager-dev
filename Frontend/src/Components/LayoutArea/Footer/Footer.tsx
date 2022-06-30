@@ -7,6 +7,7 @@ function Footer(): JSX.Element {
                 issues:
                 <li>surfing to a page other than main is not working properly</li>
                 <li>following a card doesn't reorder until page refresh, not even on logout/login </li>
+                <li>encrypt user id</li>
                 <li>it's not really responsive for mobile</li>
                 <li> center the admin menu but keep th logout on the right</li>
                 <li>need to adjust footer size per content</li>
