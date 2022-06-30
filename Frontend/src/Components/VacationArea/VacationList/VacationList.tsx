@@ -19,9 +19,16 @@ function VacationList(): JSX.Element {
 
         if (!authService.isLoggedIn()) navigate("/login");
         else {
-            vacationsService.getAllVacations()
-                .then(vacations => setVacations(vacations))
-                .catch(err => notifyService.error(err.message));
+            let vacations = store.getState().vacationsStore.vacations;
+            if (vacations.length === 0) {
+                vacationsService.getAllVacations()
+                    .then(vacations => setVacations(vacations))
+                    .catch(err => {
+                        notifyService.error(err.message);
+                        console.log(err);
+
+                    });
+            }
         }
 
         return () => socketService.disconnect();
@@ -38,7 +45,7 @@ function VacationList(): JSX.Element {
         });
 
         return () => unsubscribe();
-    }, [vacations])
+    }, [])
 
     return (
         <div className="VacationList">

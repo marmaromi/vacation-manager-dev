@@ -12,14 +12,13 @@ class VacationsService {
         if (vacations.length === 0) {
             const response = await axios.get<VacationModel[]>(config.vacationsUrl);
             vacations = response.data;
-
-            const user = store.getState().authStore.user;
-            const sortedVacations = await this.sortVacations(user.id, vacations);
-            vacations.splice(0, sortedVacations.length, ...sortedVacations);
-
-            store.dispatch(getAllVacationsAction(vacations));
         }
-        return vacations;
+        const user = store.getState().authStore.user;
+        const sortedVacations = await this.sortVacations(user.id, vacations);
+
+        store.dispatch(getAllVacationsAction(sortedVacations));
+
+        return sortedVacations;
     }
 
     public async getOneVacation(vacationId: number): Promise<VacationModel> {
@@ -96,11 +95,18 @@ class VacationsService {
     // other Methods
     public async sortVacations(userId: number, vacations: VacationModel[]): Promise<VacationModel[]> {
         const followedVacations = await this.vacationsUserFollows(userId);
-        vacations.map(v => { followedVacations.includes(v.id) ? v.isFollowing = true : v.isFollowing = false; return v; });
-        vacations.sort((x, y) => x.isFollowing === y.isFollowing ? 0 : x.isFollowing ? -1 : 1);
-        const sortedVacation = [...vacations];
+        let newVac = vacations.map(vac => {
+            let v: VacationModel = JSON.parse(JSON.stringify(vac));
 
-        return sortedVacation;
+            if (followedVacations.includes(v.id)) v.isFollowing = true;
+            else v.isFollowing = false;
+
+            return v;
+        });
+
+        newVac.sort((x, y) => x.isFollowing === y.isFollowing ? 0 : x.isFollowing ? -1 : 1);
+
+        return newVac;
     }
 
 }

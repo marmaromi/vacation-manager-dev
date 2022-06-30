@@ -6,12 +6,14 @@ import CredentialsModel from "../../../Models/CredentialsModel";
 import { store } from "../../../Redux/Store";
 import authService from "../../../Services/AuthService";
 import notifyService from "../../../Services/NotifyService";
+import vacationsService from "../../../Services/VacationsService";
 import "./login.css";
 
 function Login(): JSX.Element {
 
     const navigate = useNavigate();
     const { register, handleSubmit, formState: { errors } } = useForm<CredentialsModel>();
+
 
     useEffect(() => {
         if (store.getState().authStore.token) navigate("/vacations");
@@ -21,6 +23,7 @@ function Login(): JSX.Element {
         try {
             await authService.login(user);
             notifyService.success("You have been successfully logged-in.");
+            vacationsService.getAllVacations();
             navigate("/vacations");
         }
         catch (err: any) {
@@ -48,7 +51,7 @@ function Login(): JSX.Element {
                 })} />
                 <span>{errors.password?.message}</span>
                 <br />
-                
+
                 <button>Login</button>
 
             </form>
