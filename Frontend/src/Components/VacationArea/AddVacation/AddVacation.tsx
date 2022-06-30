@@ -84,7 +84,7 @@ function AddVacation(): JSX.Element {
                 <input type="number" {...register("price", {
                     required: { value: true, message: "Missing price" },
                     min: { value: 200, message: "Minimum price 200₪" },
-                    max: { value: 100000, message: "Maximum price 100,000₪" },
+                    max: { value: 500000, message: "Maximum price 500,000₪" },
                 })} />
                 <span className="error">{errors.price?.message}</span>
                 <br />

@@ -61,7 +61,7 @@ const addVacation = async (vacation: VacationModel): Promise<VacationModel> => {
         const dotIndex = vacation.image.name.lastIndexOf(".");
         const extension = vacation.image.name.substring(dotIndex);
         vacation.imageName = uuid() + extension;
-        await vacation.image.mv("./src/1-assets/images/" + vacation.imageName);
+        await vacation.image.mv("./../1-assets/images/" + vacation.imageName);
 
         delete vacation.image;
     }
@@ -85,7 +85,7 @@ async function updateVacation(vacation: VacationModel): Promise<VacationModel> {
     const vacationToUpdate = await getOneVacation(vacation.id);
 
     if (vacation.image) {
-        const imageToDelete = "./src/1-assets/images/" + vacationToUpdate.imageName;
+        const imageToDelete = "./../1-assets/images/" + vacationToUpdate.imageName;
         await fs.unlink(imageToDelete, (err) => {
             if (err) {
                 console.log(`Image to delete not found in path: "${imageToDelete}"`);
@@ -97,7 +97,7 @@ async function updateVacation(vacation: VacationModel): Promise<VacationModel> {
         const extension = vacation.image.name.substring(dotIndex);
         vacation.imageName = uuid() + extension;
 
-        await vacation.image.mv("./src/1-assets/images/" + vacation.imageName);
+        await vacation.image.mv("./../1-assets/images/" + vacation.imageName);
 
         delete vacation.image;
     }
@@ -125,7 +125,7 @@ async function updateVacation(vacation: VacationModel): Promise<VacationModel> {
 
 const deleteVacation = async (id: number): Promise<void> => {
     const vacationToDelete: VacationModel = await getOneVacation(id);
-    const imageToDelete = "./src/1-assets/images/" + vacationToDelete.imageName;
+    const imageToDelete = "./../1-assets/images/" + vacationToDelete.imageName;
 
     fs.unlink(imageToDelete, (err) => {
         if (err) {

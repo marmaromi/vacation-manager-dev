@@ -22,7 +22,6 @@ function Register(): JSX.Element {
         try {
             await authService.register(user);
             notifyService.success("You have been successfully registered.");
-            vacationsService.getAllVacations();
             navigate("/vacations");
         }
         catch (err: any) {

@@ -16,7 +16,7 @@ function Logout(): JSX.Element {
         const unsubscribe = store.subscribe(() => {
             setUser(store.getState().authStore.user);
         });
-        
+
         return () => unsubscribe();
     }, [])
 
@@ -29,16 +29,16 @@ function Logout(): JSX.Element {
             navigate("/login");
         }
         catch (err: any) {
-            notifyService.error(err);            
+            notifyService.error(err);
         }
     }
 
     return (
         <div className="logout">
             {
-            user?.privileges === "admin" && <span className="admin">Hello {user.firstName} {user.lastName}! | <button onClick={logout}>Logout</button></span>
-            ||
-            user?.privileges === "user" && <span className="user">Hello {user.firstName} {user.lastName}! | <button onClick={logout}>Logout</button></span>
+                user?.privileges === "admin" && <span className="admin">Hello {user.firstName} {user.lastName}! | <button onClick={logout}>Logout</button></span>
+                ||
+                user?.privileges === "user" && <span className="user">Hello {user.firstName} {user.lastName}! | <button onClick={logout}>Logout</button></span>
             }
         </div>
     );

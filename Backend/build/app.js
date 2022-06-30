@@ -8,6 +8,7 @@ var express_rate_limit_1 = __importDefault(require("express-rate-limit"));
 var cors_1 = __importDefault(require("cors"));
 var sanitize_1 = __importDefault(require("./3-middleware/sanitize"));
 var catch_all_1 = __importDefault(require("./3-middleware/catch-all"));
+// import logRequest from "./3-middleware/log-request";
 var errors_model_1 = require("./4-models/errors-model");
 var users_controller_1 = __importDefault(require("./6-controllers/users-controller"));
 var vacations_controller_1 = __importDefault(require("./6-controllers/vacations-controller"));

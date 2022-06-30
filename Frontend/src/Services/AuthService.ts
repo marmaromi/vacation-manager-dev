@@ -8,9 +8,10 @@ import notifyService from "./NotifyService";
 class AuthService {
 
     public async register(user: UserModel): Promise<void> {
-        const response = await axios.post<string>(config.registerUrl, user);
-        const token = response.data;
-        store.dispatch(registerAction(token));
+        await axios.post<string>(config.registerUrl, user);
+
+        const credentials = new CredentialsModel(user.username, user.password);
+        await this.login(credentials);
     }
 
     public async login(credentials: CredentialsModel): Promise<void> {
@@ -31,7 +32,7 @@ class AuthService {
     }
 
     public async getUserCount(): Promise<number> {
-        const response = await axios.get<number>(config.userCountUrl);        
+        const response = await axios.get<number>(config.userCountUrl);
         return response.data;
     }
 }
