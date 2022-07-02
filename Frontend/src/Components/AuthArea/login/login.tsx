@@ -27,7 +27,7 @@ function Login(): JSX.Element {
             navigate("/vacations");
         }
         catch (err: any) {
-            notifyService.error(err);
+            notifyService.error(err.response.data);
         }
     }
 
