@@ -13,12 +13,7 @@ async function catchAll(error: any, req: Request, res: Response, next: NextFunct
         if (status === 500) {
             // Log error to log file    
         }
-    } else {
-        status = 500;
-        message = "Server Error";
     }
-
-
 
     res.status(status).send(message);
 
