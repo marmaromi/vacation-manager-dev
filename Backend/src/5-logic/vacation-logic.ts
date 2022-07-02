@@ -5,6 +5,7 @@ import VacationModel from "../4-models/vacation-model";
 import { v4 as uuid } from "uuid";
 import fs from "fs";
 import socketLogic from "./socket-logic";
+import config from "../2-utils/config";
 
 const getAllVacations = async (): Promise<VacationModel[]> => {
     await UpdateFollowerCount();
@@ -61,7 +62,7 @@ const addVacation = async (vacation: VacationModel): Promise<VacationModel> => {
         const dotIndex = vacation.image.name.lastIndexOf(".");
         const extension = vacation.image.name.substring(dotIndex);
         vacation.imageName = uuid() + extension;
-        await vacation.image.mv("./../1-assets/images/" + vacation.imageName);
+        await vacation.image.mv(config.imagesPath + vacation.imageName);
 
         delete vacation.image;
     }
@@ -85,7 +86,9 @@ async function updateVacation(vacation: VacationModel): Promise<VacationModel> {
     const vacationToUpdate = await getOneVacation(vacation.id);
 
     if (vacation.image) {
-        const imageToDelete = "./../1-assets/images/" + vacationToUpdate.imageName;
+        const imageToDelete = config.imagesPath + vacationToUpdate.imageName;
+        console.log(imageToDelete);
+        
         await fs.unlink(imageToDelete, (err) => {
             if (err) {
                 console.log(`Image to delete not found in path: "${imageToDelete}"`);
@@ -97,7 +100,7 @@ async function updateVacation(vacation: VacationModel): Promise<VacationModel> {
         const extension = vacation.image.name.substring(dotIndex);
         vacation.imageName = uuid() + extension;
 
-        await vacation.image.mv("./../1-assets/images/" + vacation.imageName);
+        await vacation.image.mv(config.imagesPath + vacation.imageName);
 
         delete vacation.image;
     }
@@ -125,7 +128,7 @@ async function updateVacation(vacation: VacationModel): Promise<VacationModel> {
 
 const deleteVacation = async (id: number): Promise<void> => {
     const vacationToDelete: VacationModel = await getOneVacation(id);
-    const imageToDelete = "./../1-assets/images/" + vacationToDelete.imageName;
+    const imageToDelete = config.imagesPath + vacationToDelete.imageName;
 
     fs.unlink(imageToDelete, (err) => {
         if (err) {
