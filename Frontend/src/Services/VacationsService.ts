@@ -104,7 +104,15 @@ class VacationsService {
             return v;
         });
 
-        newVac.sort((x, y) => x.isFollowing === y.isFollowing ? 0 : x.isFollowing ? -1 : 1);
+        // newVac.sort((x, y) => x.isFollowing === y.isFollowing ? 0 : x.isFollowing ? -1 : 1);
+        newVac.sort((x, y) => {
+            if (x.isFollowing === y.isFollowing) {
+                return x.followers > y.followers ? -1 : 1;
+            } else {
+                return x.isFollowing > y.isFollowing ? -1 : 1;
+            }
+        }
+        );
 
         return newVac;
     }
