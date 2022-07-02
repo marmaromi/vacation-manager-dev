@@ -46,7 +46,7 @@ class ProductionConfig extends Config {
     public loginUrl = "https://vacation-manager-ido.herokuapp.com/api/users/login/";
     public vacationsUrl = "https://vacation-manager-ido.herokuapp.com/api/vacations/";
     public productImagesUrl = "https://vacation-manager-ido.herokuapp.com/api/vacations/images/";
-    public vacationImagesUrl = "https://vacation-manager-ido.herokuapp.com/vacations/images/";
+    public vacationImagesUrl = "https://vacation-manager-ido.herokuapp.com/api/vacations/images/";
     public followerCountUrl = "https://vacation-manager-ido.herokuapp.com/api/vacations/followers/";
     public followedVacations = "https://vacation-manager-ido.herokuapp.com/api/users/following/";
     public socketIo = "https://vacation-manager-ido.herokuapp.com/";
