@@ -28,16 +28,12 @@ function VacationList(): JSX.Element {
     }, []);
 
     useEffect(() => {
+        const user = store.getState().authStore.user;
         const unsubscribe = store.subscribe(() => {
             const updatedVacationList = store.getState().vacationsStore.vacations;
-            const user = store.getState().authStore.user;
-
             setVacations(updatedVacationList);
             vacationsService.sortVacations(user.id, updatedVacationList)
-                .then(sortedVacations => {
-                    setVacations(sortedVacations);
-                    
-                })
+                .then(sortedVacations => setVacations(sortedVacations))
                 .catch(err => console.log(err));
         });
 
