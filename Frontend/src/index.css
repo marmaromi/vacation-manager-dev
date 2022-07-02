@@ -8,6 +8,10 @@ html, body, #root {
   font-size: large;
 }
 
+body::-webkit-scrollbar {
+  display: none;
+}
+
 .Box {
   display: inline-block;
   margin: 10px;
