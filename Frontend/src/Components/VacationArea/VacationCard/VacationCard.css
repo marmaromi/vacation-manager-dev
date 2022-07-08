@@ -11,15 +11,15 @@
 }
 
 .VacationCard img {
-    width: 400px;
-    height: 300px;
+    width: 325px;
+    height: 250px;
     object-fit: cover;
     border-radius: 10px;
 }
 
 .VacationCard .bottomLeftImage {
     position: absolute;
-    top: 235px;
+    top: 185px;
     left: 16px;
     font-size: x-large;
     overflow: auto;
@@ -35,8 +35,8 @@
 
 .VacationCard .bottomRightAdmin {
     position: absolute;
-    bottom: 10px;
-    right: 15px;
+    bottom: 5px;
+    right: 12px;
 }
 
 .VacationCard .bottomRightAdmin button {
@@ -58,5 +58,6 @@
     margin-top: 8px;
     margin-left: 2px;
     text-shadow: none;
+    font-size: medium;
 }
 
