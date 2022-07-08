@@ -21,7 +21,7 @@ function VacationList(): JSX.Element {
         else {
             vacationsService.getAllVacations()
                 .then(vacations => setVacations(vacations))
-                .catch(err => notifyService.error(err.message));
+                .catch(err => notifyService.error(err));
         }
 
         return () => socketService.disconnect();

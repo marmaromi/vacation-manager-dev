@@ -19,7 +19,7 @@ class AuthService {
         const token = response.data;
         axios.post<string>(config.loginUrl, credentials)
             .then(res => localStorage.setItem("token", res.data))
-            .catch(err => notifyService.error(err.message))
+            .catch(err => notifyService.error(err))
         store.dispatch(loginAction(token));
     }
 

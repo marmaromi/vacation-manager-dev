@@ -29,7 +29,7 @@ function Logout(): JSX.Element {
             navigate("/login");
         }
         catch (err: any) {
-            notifyService.error(err.message);
+            notifyService.error(err);
         }
     }
 

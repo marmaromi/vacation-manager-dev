@@ -27,7 +27,7 @@ function FollowButton(props: FollowButtonProps): JSX.Element {
                 }
                 else setFollowing(false);
             })
-            .catch(err => notifyService.error(err.message));
+            .catch(err => notifyService.error(err));
 
         const unsubscribe = store.subscribe(() => {
             const dup = [...store.getState().vacationsStore.vacations];
@@ -50,7 +50,7 @@ function FollowButton(props: FollowButtonProps): JSX.Element {
                 newVac.isFollowing = true;
                 vacationsService.updateVacationFollowers(newVac)
                     .then(v => store.dispatch(editVacationAction(v)))
-                    .catch(err => notifyService.error(err.message));
+                    .catch(err => notifyService.error(err));
             })
             .catch(err => {
                 notifyService.error(err);
@@ -70,7 +70,7 @@ function FollowButton(props: FollowButtonProps): JSX.Element {
                 newVac.isFollowing = false;
                 vacationsService.updateVacationFollowers(newVac)
                     .then(v => store.dispatch(editVacationAction(v)))
-                    .catch(err => notifyService.error(err.message));
+                    .catch(err => notifyService.error(err));
             })
             .catch(err => {
                 notifyService.error(err);

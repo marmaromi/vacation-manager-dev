@@ -50,7 +50,7 @@ function EditVacation(): JSX.Element {
             navigate("/vacations");
         }
         catch (err: any) {
-            notifyService.error(err.message);
+            notifyService.error(err);
         }
     }
 

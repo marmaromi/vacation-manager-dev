@@ -15,7 +15,7 @@ function Reports(): JSX.Element {
         if (vacations.length === 0) {
             vacationsService.getAllVacations()
                 .then(vacations => getFollowers(vacations))
-                .catch(err => notifyService.error(err.message));
+                .catch(err => notifyService.error(err));
         }
         else {
             getFollowers(vacations);
