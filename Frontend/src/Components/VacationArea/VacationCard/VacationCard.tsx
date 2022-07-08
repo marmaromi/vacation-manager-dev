@@ -15,18 +15,11 @@ interface VacationCardProps {
 function VacationCard(props: VacationCardProps): JSX.Element {
 
     const [role, setRole] = useState<string>('');
-    const [startDate, setStartDate] = useState<string>("");
-    const [endDate, setEndDate] = useState<string>("");
 
     useEffect(() => {
         const user = store.getState().authStore.user;
         if (user?.privileges === 'admin') setRole(user.privileges);
         else setRole('')
-    }, []);
-
-    useEffect(() => {
-        setStartDate(new Date(props.vacation.startDate).toLocaleDateString("he-il"));
-        setEndDate(new Date(props.vacation.endDate).toLocaleDateString("he-il"));
     }, []);
 
     return (
@@ -42,7 +35,7 @@ function VacationCard(props: VacationCardProps): JSX.Element {
                     {props.vacation.description}
                 </div>
                 <div className="dateAndPrice">
-                    Dates: {startDate} - {endDate} <br />
+                    Dates: {new Date(props.vacation.startDate).toLocaleDateString("he-il")} - {new Date(props.vacation.endDate).toLocaleDateString("he-il")} <br />
                     Price: {props.vacation.price}₪
                 </div>
             </div>
