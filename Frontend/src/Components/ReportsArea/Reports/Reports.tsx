@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { VictoryBar, VictoryChart, VictoryTooltip, Bar, VictoryAxis } from 'victory';
 import VacationModel from '../../../Models/Vacation Model';
 import { store } from '../../../Redux/Store';
@@ -8,9 +9,13 @@ import "./Reports.css";
 
 function Reports(): JSX.Element {
 
+    const navigate = useNavigate();
     const [followers, setFollowers] = useState<number[]>();
 
     useEffect(() => {
+        if (!store.getState().authStore?.token) navigate("/login");
+        if (store.getState().authStore?.user?.privileges !== "admin") navigate("/vacations");
+
         let vacations = store.getState().vacationsStore.vacations;
         if (vacations.length === 0) {
             vacationsService.getAllVacations()
