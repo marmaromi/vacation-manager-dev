@@ -5,11 +5,10 @@
     background-image: linear-gradient(to left bottom, #b4deac, #b1d4a1, #aeca97, #abc18d, #a7b783);
     display: flex;
     flex-direction: column;
-    /* justify-content: center; */
     text-align: center;
 }
 
-.Footer h4{
+.Footer p {
     padding: 10px;
     margin: 0;
 }

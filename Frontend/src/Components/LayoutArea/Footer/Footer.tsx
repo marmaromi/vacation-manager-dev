@@ -4,7 +4,9 @@ function Footer(): JSX.Element {
     return (
         <div className="Footer">
 
-            <h4>Ido Marom 2022</h4>
+            <div className="container">
+                <p className="text-muted">&copy; 2022 Ido Marom</p>
+            </div>
 
         </div>
     );
