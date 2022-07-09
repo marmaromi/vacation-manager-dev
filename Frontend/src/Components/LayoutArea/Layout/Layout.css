@@ -18,3 +18,11 @@
 .Layout .content-wrap {
     padding-bottom: 5rem;
 }
+
+
+@media (min-width: 1500px) {
+    .Layout main {
+        max-width: 1500px;
+        margin: auto;
+    }
+}

@@ -42,7 +42,6 @@ function VacationList(): JSX.Element {
 
     return (
         <div className="VacationList">
-            {/* {vacations.length === 0 && <Loading />} */}
             {vacations.map(v => <VacationCard key={v.id} vacation={v} />)}
 
         </div>
