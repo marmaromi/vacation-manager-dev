@@ -7,6 +7,7 @@ import config from "../../../Utils/config";
 import editIcon from "../../../assets/images/edit-icon.png";
 import "./VacationCard.css";
 import FollowButton from "../FollowButton/FollowButton";
+import notifyService from "../../../Services/NotifyService";
 
 interface VacationCardProps {
     vacation: VacationModel;
@@ -21,6 +22,15 @@ function VacationCard(props: VacationCardProps): JSX.Element {
         if (user?.privileges === 'admin') setRole(user.privileges);
         else setRole('')
     }, []);
+
+    const deleteVacation = async (): Promise<void> =>{
+        try {
+            await vacationsService.deleteVacation(props.vacation.id);
+            notifyService.success(`Vacation to ${props.vacation.destination} deleted successfully`)
+        } catch (err) {
+            notifyService.error(err)
+        }
+    }
 
     return (
         <div className="VacationCard Box" >
@@ -44,7 +54,7 @@ function VacationCard(props: VacationCardProps): JSX.Element {
                 <NavLink to={`/vacations/edit/${props.vacation.id}`}>
                     <img src={editIcon} />
                 </NavLink><br />
-                <button onClick={async (): Promise<void> => await vacationsService.deleteVacation(props.vacation.id)}>❌</button>
+                <button onClick={deleteVacation}>❌</button>
             </div>
 
                 ||
