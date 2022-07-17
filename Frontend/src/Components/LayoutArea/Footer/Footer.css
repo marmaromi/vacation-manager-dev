@@ -8,7 +8,21 @@
     text-align: center;
 }
 
-.Footer p {
+.Footer .text-muted {
     padding: 10px;
     margin: 0;
+}
+
+.Footer .border-bottom > p{
+    text-align: left;
+    margin-left: 0.8rem;
+    margin-top: 0.3rem;
+    margin-bottom: 0.3rem;
+    text-decoration: underline;
+}
+
+.Footer ul{
+    font-size: medium;
+    text-align: left;
+    margin-bottom: 4px;
 }

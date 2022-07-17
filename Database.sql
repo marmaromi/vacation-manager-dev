@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 23, 2022 at 09:14 AM
+-- Generation Time: Jul 08, 2022 at 03:21 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -73,16 +73,17 @@ CREATE TABLE `user_tagged_vacations` (
 --
 
 INSERT INTO `user_tagged_vacations` (`userId`, `vacationId`) VALUES
-(1, 1),
-(1, 2),
-(1, 3),
-(2, 2),
-(3, 1),
-(4, 1),
-(4, 2),
-(5, 1),
-(6, 1),
-(8, 3);
+(2, 15),
+(2, 18),
+(2, 20),
+(4, 16),
+(9, 13),
+(9, 15),
+(11, 15),
+(18, 13),
+(18, 15),
+(18, 17),
+(18, 20);
 
 -- --------------------------------------------------------
 
@@ -106,11 +107,15 @@ CREATE TABLE `vacations` (
 --
 
 INSERT INTO `vacations` (`vacationId`, `description`, `destination`, `startDate`, `endDate`, `price`, `imageName`, `followers`) VALUES
-(1, 'Culinary trip to Paris', 'Paris', '2022-06-26', '2022-06-30', 2500, '0fcb7bd3-1962-4516-91ad-d608ef47bd5d.jpg', 5),
-(2, 'Psychdelic trip to Amsterdam', 'Amsterdam', '2022-06-12', '2022-06-18', 4000, '4cbcbd54-ef8f-434c-8153-e177dc48d428.jpg', 3),
-(3, 'Enjoy Thailand\'s best islands and beaches', 'Thailand', '2022-07-03', '2022-07-24', 10000, '3b1595e4-ffd4-44c8-b035-305e6904c66e.jpg', 2),
-(8, 'A Romantic trip to Rome', 'Rome', '2022-06-20', '2022-06-30', 3500, '138922fc-aa63-46a4-bb60-11f1d5b678b9.jpg', 0),
-(13, 'A tip to California\'s best vineyards', 'California - United States', '2022-08-01', '2022-08-31', 15000, '3a1ebb4b-e100-445b-a89f-3ac5821ba03e.jpg', 0);
+(13, 'California\'s best vineyards', 'California', '2022-08-17', '2022-09-18', 35000, '3a1ebb4b-e100-445b-a89f-3ac5821ba03e.jpg', 2),
+(15, 'Enjoy the city of Tel Aviv', 'Tel Aviv', '2022-07-15', '2022-07-25', 130000, '3a8cbea6-7ffa-457d-acd6-493e94eb4769.jpg', 4),
+(16, 'Culinary trip to Paris', 'Paris', '2022-07-04', '2022-07-08', 3500, 'e555aa5c-2816-4320-8f13-5ee154e8cb30.jpg', 1),
+(17, 'Psychdelic trip to Amsterdam', 'Amsterdam', '2022-07-26', '2022-07-30', 8000, 'fd34378c-e6eb-4b9f-8f2d-506e0a6cb2a9.jpg', 1),
+(18, 'Enjoy Beautiful islands and beaches', 'Thailand', '2022-07-04', '2022-08-03', 25000, 'c0c3f311-91f4-41df-bab0-634dc3c71242.jpg', 1),
+(20, 'Safari trip in South Africa', 'South Africa', '2022-07-20', '2022-07-28', 35000, '3fa288b5-addb-4362-9fc2-f1384bf6a1f5.jpg', 2),
+(21, 'New york City and Manhattan', 'New York', '2022-07-18', '2022-08-30', 3000, 'eb772156-9739-4261-a92b-f2ac4c221a12.jpg', 0),
+(33, 'Romance in Rome', 'Rome', '2022-07-26', '2022-07-30', 4500, '138922fc-aa63-46a4-bb60-11f1d5b678b9.jpg', 0),
+(41, 'Trip to Petra', 'Petra', '2022-07-25', '2022-07-28', 1500, 'd5e29e7d-3b8b-417c-9e14-b992d608266e.jpg', 0);
 
 --
 -- Indexes for dumped tables
@@ -143,13 +148,13 @@ ALTER TABLE `vacations`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `userId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `userId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `vacations`
 --
 ALTER TABLE `vacations`
-  MODIFY `vacationId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `vacationId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- Constraints for dumped tables
